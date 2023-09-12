@@ -8,9 +8,4 @@ class IndexController extends AbstractController
     {
         $this->_view();
     }
-
-    public function a7ooAction()
-    {
-        $this->_view();
-    }
 }

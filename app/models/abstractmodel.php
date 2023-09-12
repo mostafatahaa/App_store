@@ -1,10 +1,14 @@
 <?php
 
+namespace PHPMVC\Models;
+
+use PHPMVC\LIB\Database\DatabaseConn;
+
 class AbstractModel
 {
-    const TYPE_BOOL = PDO::PARAM_BOOL;
-    const TYPE_INT  = PDO::PARAM_INT;
-    const TYPE_STR  = PDO::PARAM_STR;
+    const TYPE_BOOL = \PDO::PARAM_BOOL;
+    const TYPE_INT  = \PDO::PARAM_INT;
+    const TYPE_STR  = \PDO::PARAM_STR;
     const TYPE_DEC  = 5;
 
     public static function create_named_params_sql()
@@ -28,24 +32,18 @@ class AbstractModel
         }
     }
 
-
-
-    // in this method we use $this keyword because it return the value of the variable($params)
-    // EX: params ==> name...$this->$params ==> mostafa...and we need the value to use it in bindValue
     public function create()
     {
-        global $db_connection;
         $sql = "INSERT INTO " . static::$table_name . " SET " . self::create_named_params_sql();
-        $stmt = $db_connection->prepare($sql);
+        $stmt = DatabaseConn::connect_db()->prepare($sql);
         $this->prepare_val($stmt);
         $stmt->execute();
     }
 
     public function update()
     {
-        global $db_connection;
         $sql = "UPDATE " . static::$table_name . " SET " . self::create_named_params_sql() . " WHERE " . static::$primary_key . " = " . $this->{static::$primary_key};
-        $stmt = $db_connection->prepare($sql);
+        $stmt = DatabaseConn::connect_db()->prepare($sql);
         $this->prepare_val($stmt);
         return $stmt->execute();
     }
@@ -57,33 +55,30 @@ class AbstractModel
 
     public function delete()
     {
-        global $db_connection;
 
         $sql = "DELETE FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . $this->{static::$primary_key};
-        $stmt = $db_connection->prepare($sql);
+        $stmt = DatabaseConn::connect_db()->prepare($sql);
         return  $stmt->execute();
     }
 
 
     public static function get_all()
     {
-        global $db_connection;
 
         $sql = "SELECT * FROM " . static::$table_name;
-        $stmt = $db_connection->prepare($sql);
+        $stmt = DatabaseConn::connect_db()->prepare($sql);
         $stmt->execute();
-        $result =  $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+        $result =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
         return is_array($result) && !empty($result) ? $result : false;
     }
 
     public static function get_by_key($pk)
     {
-        global $db_connection;
 
         $sql = "SELECT * FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . "$pk";
-        $stmt = $db_connection->prepare($sql);
+        $stmt = DatabaseConn::connect_db()->prepare($sql);
         if ($stmt->execute()) {
-            $obj = $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+            $obj = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
             return $obj = array_shift($obj);
         }
         return false;

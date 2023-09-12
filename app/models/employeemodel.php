@@ -1,6 +1,10 @@
 <?php
-require_once "abstract_model.php";
-class Employees extends AbstractModel
+
+namespace PHPMVC\Models;
+
+use PHPMVC\Models\AbstractModel;
+
+class EmployeeModel extends AbstractModel
 {
     public $id;
     public $name;
@@ -32,11 +36,6 @@ class Employees extends AbstractModel
     public function __get($prop)
     {
         return $this->$prop;
-    }
-
-    public function set_name($name)
-    {
-        $this->name = $name;
     }
 
     public static function get_table_name()
