@@ -8,6 +8,9 @@ class Front_Controller
     private $_action        = "default";
     private $_params        = [];
 
+    const NOT_FOUND_ACTION = "notFoundAction";
+    const NOT_FOUND_CONTROLLER = "PHPMVC\Controllers\\NotFoundController";
+
     public function __construct()
     {
         $this->_url();
@@ -36,23 +39,18 @@ class Front_Controller
         $action_name = $this->_action . "Action";
 
         if (!class_exists($controller_class_name)) {
-            $controller_class_name = "PHPMVC\Controllers\\NotFoundController";
+            $controller_class_name = self::NOT_FOUND_CONTROLLER;
         }
 
         $controller = new $controller_class_name();
 
         if (!method_exists($controller, $action_name)) {
-            $action_name = "notFoundAction";
+            $this->_action = $action_name = self::NOT_FOUND_ACTION;
         }
-
-
-        $controller->$action_name();
 
         $controller->set_controller($this->_controller);
         $controller->set_action($this->_action);
         $controller->set_parmas($this->_params);
-        echo "<pre>";
-        var_dump($controller);
-        echo "</pre>";
+        $controller->$action_name();
     }
 }
