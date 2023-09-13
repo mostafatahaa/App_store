@@ -24,20 +24,6 @@ class EmployeeModel extends AbstractModel
         "address"   => self::TYPE_STR,
     ];
 
-    public function __construct($name, $email, $age, $salary, $address)
-    {
-        $this->name     = $name;
-        $this->email    = $email;
-        $this->age      = $age;
-        $this->salary   = $salary;
-        $this->address  = $address;
-    }
-
-    public function __get($prop)
-    {
-        return $this->$prop;
-    }
-
     public static function get_table_name()
     {
         return self::$table_name;
