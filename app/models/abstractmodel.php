@@ -37,7 +37,11 @@ class AbstractModel
         $sql = "INSERT INTO " . static::$table_name . " SET " . self::create_named_params_sql();
         $stmt = DatabaseConn::connect_db()->prepare($sql);
         $this->prepare_val($stmt);
-        $stmt->execute();
+        if ($stmt->execute()) {
+            $this->{static::$primary_key} = DatabaseConn::connect_db()->lastInsertId();
+            return true;
+        }
+        return false;
     }
 
     public function update()
@@ -68,7 +72,11 @@ class AbstractModel
         $sql = "SELECT * FROM " . static::$table_name;
         $stmt = DatabaseConn::connect_db()->prepare($sql);
         $stmt->execute();
-        $result =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+        if (method_exists(get_called_class(), "__construct")) {
+            $result =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+        } else {
+            $result =  $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        }
         return is_array($result) && !empty($result) ? $result : false;
     }
 
