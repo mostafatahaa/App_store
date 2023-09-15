@@ -68,10 +68,10 @@ class AbstractModel
 
     public static function get_all()
     {
-
         $sql = "SELECT * FROM " . static::$table_name;
         $stmt = DatabaseConn::connect_db()->prepare($sql);
         $stmt->execute();
+
         if (method_exists(get_called_class(), "__construct")) {
             $result =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
         } else {
@@ -82,13 +82,18 @@ class AbstractModel
 
     public static function get_by_key($pk)
     {
-
-        $sql = "SELECT * FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . "$pk";
+        $sql = "SELECT * FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . $pk;
         $stmt = DatabaseConn::connect_db()->prepare($sql);
+
         if ($stmt->execute()) {
-            $obj = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
-            return $obj = array_shift($obj);
+            if (method_exists(get_called_class(), "__construct")) {
+                $obj =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+            } else {
+                $obj =  $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+            }
+            return !empty($obj) ? array_shift($obj) : false;
         }
+
         return false;
     }
 }
