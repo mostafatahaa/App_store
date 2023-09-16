@@ -33,14 +33,21 @@ class AbstractController
 
     protected function _view()
     {
-        // this function allowed you to use keys as a variable
         if ($this->_action == Front_Controller::NOT_FOUND_ACTION) {
             require_once VIEWS_PATH . "notfound" . DS .  "notfound.view.php ";
         } else {
             $view = VIEWS_PATH . $this->_controller . DS . $this->_action . ".view.php ";
 
             if (file_exists($view)) {
+                // this function allowed you to use keys as a variable
                 extract($this->_data);
+                require_once TEMPLATE_PATH . "templateheaderstart.php";
+                require_once TEMPLATE_PATH . "templateheaderend.php";
+                require_once TEMPLATE_PATH . "wrapperstart.php";
+                require_once TEMPLATE_PATH . "header.php";
+                require_once TEMPLATE_PATH . "nav.php";
+                require_once TEMPLATE_PATH . "wrapperend.php";
+                require_once TEMPLATE_PATH . "templatefooter.php";
                 require_once $view;
             } else {
                 require_once VIEWS_PATH . "notfound" . DS .  "notview.view.php ";
