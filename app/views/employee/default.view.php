@@ -23,7 +23,7 @@
     <a href="employee/add" style="font-size: x-large;border: solid;border-radius: 9px;padding: 10px;margin: 151px;">Add new employee</a>
 </div>
 
-<table class="table table-striped table-dark" style="width: 70%; margin:auto;margin-top: 100px;">
+<table class="table table-striped table-white" style="width: 70%; margin:auto;margin-top: 100px;">
 
     <?php if (isset($_SESSION["message"])) : ?>
         <div class="alert alert-primary" role="alert" style="background-color: #d3ffda;">
