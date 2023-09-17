@@ -47,6 +47,7 @@ class Template
             $parts = $this->_template_parts["template"];
             if (!empty($parts)) {
                 extract($this->_data);
+
                 foreach ($parts as $part_key => $file) {
                     if ($part_key === ":view") {
                         require_once $this->_action_view;
@@ -96,15 +97,5 @@ class Template
         $this->render_template_blocks();
         $this->render_template_header_end();
         $this->render_template_footer();
-
-
-        // require_once TEMPLATE_PATH . "templateheaderstart.php";
-        // require_once TEMPLATE_PATH . "templateheaderend.php";
-        // require_once TEMPLATE_PATH . "wrapperstart.php";
-        // require_once TEMPLATE_PATH . "header.php";
-        // require_once TEMPLATE_PATH . "nav.php";
-        // require_once TEMPLATE_PATH . "wrapperend.php";
-        // require_once TEMPLATE_PATH . "templatefooter.php";
-        // require_once $this->_action_view;
     }
 }

@@ -6,6 +6,7 @@ use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\Models\EmployeeModel;
 
+
 class EmployeeController extends AbstractController
 {
     use InputFilter;
@@ -13,6 +14,7 @@ class EmployeeController extends AbstractController
     public function defaultAction()
     {
 
+        $this->_data["title"] = "الموظفين";
         $this->_data["employees"] = EmployeeModel::get_all();
         $this->_view();
     }
