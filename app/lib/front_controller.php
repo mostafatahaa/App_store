@@ -7,16 +7,19 @@ class Front_Controller
     private $_controller    = "index";
     private $_action        = "default";
     private $_params        = [];
+    private $_template;
 
     const NOT_FOUND_ACTION = "notFoundAction";
     const NOT_FOUND_CONTROLLER = "PHPMVC\Controllers\\NotFoundController";
 
-    public function __construct()
+    // using dependency injection
+    public function __construct(Template $template)
     {
+        $this->_template = $template;
         $this->_url();
     }
 
-    public function _url()
+    private function _url()
     {
         $url = explode("/", trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), "/"), 3);
 
@@ -50,7 +53,8 @@ class Front_Controller
 
         $controller->set_controller($this->_controller);
         $controller->set_action($this->_action);
-        $controller->set_parmas($this->_params);
+        $controller->set_action($this->_action);
+        $controller->set_template($this->_template);
         $controller->$action_name();
     }
 }

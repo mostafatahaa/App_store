@@ -9,7 +9,7 @@
         </div>
         <div class="offcanvas-body" style="padding: 0;">
             <div style="text-align: center; margin-bottom:50px;">
-                <img src="img/pic.png" class="rounded mx-auto d-block" style="width: 71%; margin-top: 34px;margin-bottom: 30px;" alt="#">
+                <img src="/img/pic.png" class="rounded mx-auto d-block" style="width: 71%; margin-top: 34px;margin-bottom: 30px;" alt="#">
                 <h2>محمود شلبي</h2>
             </div>
             <div>

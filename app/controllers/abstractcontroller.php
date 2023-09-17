@@ -9,6 +9,8 @@ class AbstractController
     protected $_controller;
     protected $_action;
     protected $_params;
+    protected $_template;
+
     protected $_data = [];
 
     public function notFoundAction()
@@ -31,6 +33,11 @@ class AbstractController
         $this->_params = $params_name;
     }
 
+    public function set_template($template)
+    {
+        $this->_template = $template;
+    }
+
     protected function _view()
     {
         if ($this->_action == Front_Controller::NOT_FOUND_ACTION) {
@@ -41,14 +48,9 @@ class AbstractController
             if (file_exists($view)) {
                 // this function allowed you to use keys as a variable
                 extract($this->_data);
-                require_once TEMPLATE_PATH . "templateheaderstart.php";
-                require_once TEMPLATE_PATH . "templateheaderend.php";
-                require_once TEMPLATE_PATH . "wrapperstart.php";
-                require_once TEMPLATE_PATH . "header.php";
-                require_once TEMPLATE_PATH . "nav.php";
-                require_once TEMPLATE_PATH . "wrapperend.php";
-                require_once TEMPLATE_PATH . "templatefooter.php";
-                require_once $view;
+                $this->_template->set_action_view_file($view);
+                $this->_template->set_app_data($this->_data);
+                $this->_template->render_app();
             } else {
                 require_once VIEWS_PATH . "notfound" . DS .  "notview.view.php ";
             }
