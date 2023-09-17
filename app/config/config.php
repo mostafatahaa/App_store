@@ -3,9 +3,11 @@ if (!defined("DS")) {
     define("DS", DIRECTORY_SEPARATOR);
 }
 
-define("APP_PATH", realpath(dirname(__FILE__)));
+define("APP_PATH", realpath(dirname(__FILE__)) . DS . "..");
 define("VIEWS_PATH", APP_PATH . DS . "views" . DS);
 define("TEMPLATE_PATH", APP_PATH . DS . "template" . DS);
+define("CSS", '/css/');
+define("JS", '/js/');
 
 defined("DATABASE_HOST_NAME")       ? null : define("DATABASE_HOST_NAME", "localhost");
 defined("DATABASE_USER_NAME")       ? null : define("DATABASE_USER_NAME", "root");

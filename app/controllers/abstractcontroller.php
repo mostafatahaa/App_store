@@ -41,7 +41,6 @@ class AbstractController
             if (file_exists($view)) {
                 // this function allowed you to use keys as a variable
                 extract($this->_data);
-                require_once $view;
                 require_once TEMPLATE_PATH . "templateheaderstart.php";
                 require_once TEMPLATE_PATH . "templateheaderend.php";
                 require_once TEMPLATE_PATH . "wrapperstart.php";
@@ -49,6 +48,7 @@ class AbstractController
                 require_once TEMPLATE_PATH . "nav.php";
                 require_once TEMPLATE_PATH . "wrapperend.php";
                 require_once TEMPLATE_PATH . "templatefooter.php";
+                require_once $view;
             } else {
                 require_once VIEWS_PATH . "notfound" . DS .  "notview.view.php ";
             }
