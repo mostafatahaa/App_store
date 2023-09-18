@@ -26,16 +26,19 @@ class Template
 
     public function render_template_header_start()
     {
+        extract($this->_data);
         require_once TEMPLATE_PATH . "templateheaderstart.php";
     }
 
     public function render_template_header_end()
     {
+        extract($this->_data);
         require_once TEMPLATE_PATH . "templateheaderend.php";
     }
 
     public function render_template_footer()
     {
+        extract($this->_data);
         require_once TEMPLATE_PATH . "templatefooter.php";
     }
 
@@ -47,7 +50,6 @@ class Template
             $parts = $this->_template_parts["template"];
             if (!empty($parts)) {
                 extract($this->_data);
-
                 foreach ($parts as $part_key => $file) {
                     if ($part_key === ":view") {
                         require_once $this->_action_view;
@@ -92,10 +94,11 @@ class Template
 
     public function render_app()
     {
+
         $this->render_template_header_start();
         $this->render_header_resources();
-        $this->render_template_blocks();
         $this->render_template_header_end();
+        $this->render_template_blocks();
         $this->render_template_footer();
     }
 }

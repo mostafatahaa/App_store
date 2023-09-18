@@ -2,20 +2,23 @@
 
 namespace PHPMVC\LIB;
 
-class Front_Controller
+class FrontController
 {
     private $_controller    = "index";
     private $_action        = "default";
     private $_params        = [];
+
     private $_template;
+    private $_language;
 
     const NOT_FOUND_ACTION = "notFoundAction";
     const NOT_FOUND_CONTROLLER = "PHPMVC\Controllers\\NotFoundController";
 
     // using dependency injection
-    public function __construct(Template $template)
+    public function __construct(Template $template, Language $language)
     {
         $this->_template = $template;
+        $this->_language = $language;
         $this->_url();
     }
 
@@ -46,15 +49,16 @@ class Front_Controller
         }
 
         $controller = new $controller_class_name();
-
         if (!method_exists($controller, $action_name)) {
             $this->_action = $action_name = self::NOT_FOUND_ACTION;
         }
 
         $controller->set_controller($this->_controller);
         $controller->set_action($this->_action);
-        $controller->set_action($this->_action);
+        $controller->set_params($this->_params);
         $controller->set_template($this->_template);
+        $controller->set_language($this->_language);
+
         $controller->$action_name();
     }
 }

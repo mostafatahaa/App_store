@@ -20,7 +20,7 @@
 </head>
 
 <div style="margin-top: 84px;">
-    <a href="employee/add" style="font-size: x-large;border: solid;border-radius: 9px;padding: 10px;margin: 151px;">Add new employee</a>
+    <a href="employee/add" style="font-size: x-large;border: solid;border-radius: 9px;padding: 10px;margin: 151px;"><?= $text_add_employee ?></a>
 </div>
 
 <table class="table table-striped table-white" style="width: 70%; margin:auto;margin-top: 100px;">
@@ -37,12 +37,12 @@
     <thead>
         <tr>
 
-            <th scope="col">Name</th>
-            <th scope="col">Email address</th>
-            <th scope="col">Age</th>
-            <th scope="col">Salary</th>
-            <th scope="col">Address</th>
-            <th scope="col">Control</th>
+            <th scope="col"><?= $text_table_employee_name ?></th>
+            <th scope="col"><?= $text_table_employee_email ?></th>
+            <th scope="col"><?= $text_table_employee_age ?></th>
+            <th scope="col"><?= $text_table_employee_salary ?></th>
+            <th scope="col"><?= $text_table_employee_address ?></th>
+            <th scope="col"><?= $text_table_employee_control ?></th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
                     <td><?= $employee->address ?></td>
                     <td>
                         <a href="/employee/edit/<?= $employee->id ?>"><button type="button" class="btn btn-info">Edit</button></a>
-                        <a href="/employee/delete/<?= $employee->id ?>" onclick="if(!confirm('Do you want to delete this employee ?')) return false;"><i class=" fa fa-time"></i><button type=" button" class="btn btn-danger">Delete</button></a>
+                        <a href="/employee/delete/<?= $employee->id ?>" onclick="if(!confirm('<?= $text_delete_confirm ?>')) return false;"><i class=" fa fa-time"></i><button type=" button" class="btn btn-danger">Delete</button></a>
                     </td>
 
                 </tr>
