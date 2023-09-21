@@ -1,29 +1,4 @@
-<?php
-
-
-
-
-
-
-?>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>PDO</title>
-</head>
-
-<div style="margin-top: 84px;">
-    <a href="employee/add" style="font-size: x-large;border: solid;border-radius: 9px;padding: 10px;margin: 151px;"><?= $text_add_employee ?></a>
-</div>
-
-<table class="table table-striped table-white" style="width: 70%; margin:auto;margin-top: 100px;">
+<table class="table" style="width: 70%; margin:auto;margin-top: 100px;background-color: #fdfdfd; border-radius: 18px;">
 
     <?php if (isset($_SESSION["message"])) : ?>
         <div class="alert alert-primary" role="alert" style="background-color: #d3ffda;">
@@ -34,7 +9,7 @@
         </div>
     <?php endif ?>
 
-    <thead>
+    <thead class="table-dark" style="text-align-last: right;">
         <tr>
 
             <th scope="col"><?= $text_table_employee_name ?></th>
@@ -68,4 +43,8 @@
 
 
     </tbody>
+    <div><a href="/employee/add">
+            <button style="position:absolute;top: 14%;right: 6%;" type="button" class="btn btn-success"><?= $text_add_employee ?></button>
+        </a>
+    </div>
 </table>

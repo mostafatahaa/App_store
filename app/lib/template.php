@@ -50,16 +50,16 @@ class Template
             $parts = $this->_template_parts["template"];
             if (!empty($parts)) {
                 extract($this->_data);
-                foreach ($parts as $part_key => $file) {
-                    if ($part_key === ":view") {
+                foreach ($parts as $part_key => $file)
+                    if ($part_key == ":view") {
                         require_once $this->_action_view;
                     } else {
                         require_once $file;
                     }
-                }
             }
         }
     }
+
 
     private function render_header_resources()
     {
@@ -73,32 +73,40 @@ class Template
             $css = $resources["css"];
             if (!empty($css)) {
                 foreach ($css as $css_key => $path) {
-                    $output .= "<link rel='stylesheet' $path />";
-                }
-            }
-
-            // Generate js links 
-            $js = $resources["js"];
-            if (!empty($js)) {
-                foreach ($js as $js_key => $path) {
-                    $output .= "<script src= $path ></script>";
+                    $output .=  "<link rel=\"stylesheet\" href=" . $path;
                 }
             }
         }
-
         echo $output;
     }
 
 
+    private function render_footer_resources()
+    {
+        $output = '';
+        if (!array_key_exists("footer_resources",  $this->_template_parts)) {
+            trigger_error("You have to define header resources", E_USER_WARNING);
+        } else {
+            $resources = $this->_template_parts["footer_resources"];
 
+            // Generate library links 
+            $library = $resources["library"];
+            if (!empty($library)) {
+                foreach ($library as $library_key => $path) {
+                    $output .= '<script src="' . $path . '"></script>';
+                }
+            }
+        }
+        echo $output;
+    }
 
     public function render_app()
     {
-
         $this->render_template_header_start();
         $this->render_header_resources();
         $this->render_template_header_end();
         $this->render_template_blocks();
+        $this->render_footer_resources();
         $this->render_template_footer();
     }
 }

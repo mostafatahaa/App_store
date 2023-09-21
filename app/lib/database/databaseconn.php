@@ -4,10 +4,10 @@ namespace PHPMVC\LIB\Database;
 
 class DatabaseConn
 {
-    private static $host_name = "localhost";
-    private static $db_name = "new_employees";
-    private static $pass = "";
-    private static $user = "root";
+    private static $host_name = DATABASE_HOST_NAME;
+    private static $db_name = DATABASE_DB_NAME;
+    private static $pass = DATABASE_PASSWORD;
+    private static $user = DATABASE_USER_NAME;
     public  static $pdo;
 
 

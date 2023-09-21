@@ -14,6 +14,12 @@ class AbstractController
 
     protected $_data = [];
 
+
+    public function set_template($template)
+    {
+        $this->_template = $template;
+    }
+
     public function notFoundAction()
     {
         echo $this->_view();
@@ -38,10 +44,7 @@ class AbstractController
         $this->_language = $language;
     }
 
-    public function set_template($template)
-    {
-        $this->_template = $template;
-    }
+
 
     protected function _view()
     {
@@ -51,7 +54,6 @@ class AbstractController
             $view = VIEWS_PATH . $this->_controller . DS . $this->_action . ".view.php ";
 
             if (file_exists($view)) {
-                // this function allowed you to use keys as a variable
                 $this->_data = array_merge($this->_data, $this->_language->get_dictionary());
                 $this->_template->set_action_view_file($view);
                 $this->_template->set_app_data($this->_data);

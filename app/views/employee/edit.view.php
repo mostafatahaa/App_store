@@ -31,3 +31,28 @@
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
     </form>
+
+
+    <form style="direction:rtl;width: 70%;margin: auto;">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="name" value="<?= $employee->name ?>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="name" value="<?= $employee->email ?>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="name" value="<?= $employee->age ?>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="name" value="<?= $employee->salary ?>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="name" value="<?= $employee->address ?>">
+        </div>
+
+    </form>
