@@ -47,7 +47,7 @@ class EmployeeController extends AbstractController
             $this->redirect("/employee");
         }
 
-        var_dump($this->_language->load("template.common"));
+        $this->_language->load("template.common");
 
         $this->_data["employee"] = $emp;
 

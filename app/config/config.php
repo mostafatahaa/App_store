@@ -7,8 +7,11 @@ define("APP_PATH", realpath(dirname(__FILE__)) . DS . "..");
 define("VIEWS_PATH", APP_PATH . DS . "views" . DS);
 define("TEMPLATE_PATH", APP_PATH . DS . "template" . DS);
 define("LANGUAGE_PATH", APP_PATH . DS . "languages" . DS);
-define("CSS", '/css/');
-define("JS", '/js/');
+
+define("PUBLIC_PATH", APP_PATH . DS . "public");
+define("JS_PATH", PUBLIC_PATH . DS . "js" . DS);
+define("CSS_PATH", PUBLIC_PATH . DS . "css" . DS);
+
 
 defined("DATABASE_HOST_NAME")       ? null : define("DATABASE_HOST_NAME", "localhost");
 defined("DATABASE_USER_NAME")       ? null : define("DATABASE_USER_NAME", "root");

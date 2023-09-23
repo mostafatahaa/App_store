@@ -73,28 +73,16 @@ class Template
             $css = $resources["css"];
             if (!empty($css)) {
                 foreach ($css as $css_key => $path) {
-                    $output .= "<link rel='stylesheet' $path />";
-                }
-            }
-
-            // Generate js links 
-            $js = $resources["js"];
-            if (!empty($js)) {
-                foreach ($js as $js_key => $path) {
-                    $output .= "<script src= $path ></script>";
+                    $output .= '<link rel="stylesheet"' . $path . '/>';
                 }
             }
         }
-
         echo $output;
     }
 
 
-
-
     public function render_app()
     {
-
         $this->render_template_header_start();
         $this->render_header_resources();
         $this->render_template_header_end();

@@ -19,6 +19,7 @@ if (!isset($_SESSION["lang"])) {
     $_SESSION["lang"] = APP_DEFAULT_LANGUAGE;
 }
 
+
 $template = new Template($template_parts);
 $language = new Language();
 $front_controller = new FrontController($template, $language);

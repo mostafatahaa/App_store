@@ -51,11 +51,11 @@ class AbstractController
             $view = VIEWS_PATH . $this->_controller . DS . $this->_action . ".view.php ";
 
             if (file_exists($view)) {
-                // this function allowed you to use keys as a variable
                 $this->_data = array_merge($this->_data, $this->_language->get_dictionary());
                 $this->_template->set_action_view_file($view);
                 $this->_template->set_app_data($this->_data);
                 $this->_template->render_app();
+                require_once TEMPLATE_PATH . "templateheaderstart.php";
             } else {
                 require_once VIEWS_PATH . "notfound" . DS .  "notview.view.php ";
             }
