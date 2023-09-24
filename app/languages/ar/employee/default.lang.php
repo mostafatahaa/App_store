@@ -8,3 +8,4 @@ $_["text_table_employee_salary"] = "المرتب";
 $_["text_table_employee_address"] = "العنوان";
 $_["text_table_employee_control"] = "لوحة التحكم";
 $_["text_delete_confirm"] = "هل ترغب في حذف الموظف ؟";
+$_["text_table_submit"] = "حفظ";

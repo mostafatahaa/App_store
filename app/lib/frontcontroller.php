@@ -41,6 +41,7 @@ class FrontController
 
     public function dispatch()
     {
+
         $controller_class_name = "PHPMVC\Controllers\\" . ucfirst($this->_controller) . "Controller";
         $action_name = $this->_action . "Action";
 

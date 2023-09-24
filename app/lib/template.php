@@ -77,6 +77,8 @@ class Template
                 }
             }
         }
+
+
         echo $output;
     }
 
