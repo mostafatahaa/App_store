@@ -15,7 +15,8 @@ class EmployeeController extends AbstractController
     {
         $this->_language->load("template.common");
         $this->_language->load("employee.default");
-        $this->_data["employees"] = EmployeeModel::get_all();
+
+        // $this->_data["employees"] = EmployeeModel::get_all();
         $this->_view();
     }
 

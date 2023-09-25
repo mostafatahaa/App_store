@@ -6,10 +6,11 @@ use PHPMVC\LIB\Database\DatabaseConn;
 
 class AbstractModel
 {
-    const TYPE_BOOL = \PDO::PARAM_BOOL;
-    const TYPE_INT  = \PDO::PARAM_INT;
-    const TYPE_STR  = \PDO::PARAM_STR;
-    const TYPE_DEC  = 5;
+    const TYPE_BOOL  = \PDO::PARAM_BOOL;
+    const TYPE_INT   = \PDO::PARAM_INT;
+    const TYPE_STR   = \PDO::PARAM_STR;
+    const TYPE_DATE  = \PDO::PARAM_STR;
+    const TYPE_DEC   = 5;
 
     public static function create_named_params_sql()
     {

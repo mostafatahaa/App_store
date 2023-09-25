@@ -12,3 +12,4 @@ $_["text_clients"] = "العملاء";
 $_["text_suppliers"] = "الموردين";
 $_["text_reports"] = "التقارير";
 $_["text_notifications"] = "الاشعارات";
+$_["text_add_user"] = "اضافة مستخدم جديد";

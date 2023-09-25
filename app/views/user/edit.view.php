@@ -1,4 +1,4 @@
-<div class="main_container">
+<!-- <div class="main_container">
     <form method="post" style="width: 50%; margin:auto; padding-top:100px;">
 
         <div class="form-group">
@@ -23,4 +23,4 @@
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
+</div> -->

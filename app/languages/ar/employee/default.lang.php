@@ -1,11 +1,10 @@
 <?php
-$_["title"] = "الموظفين";
-$_["text_add_employee"] = "أضف موظف جديد";
-$_["text_table_employee_name"] = "اسم الموظف";
-$_["text_table_employee_email"] = "البريد الالكتروني";
-$_["text_table_employee_age"] = "العمر";
-$_["text_table_employee_salary"] = "المرتب";
-$_["text_table_employee_address"] = "العنوان";
-$_["text_table_employee_control"] = "لوحة التحكم";
-$_["text_delete_confirm"] = "هل ترغب في حذف الموظف ؟";
-$_["text_table_submit"] = "حفظ";
+$_["title"] = "المستخدمين والصلاحيات";
+$_["text_header"] = "المستخدمين والصلاحيات";
+$_["text_new_item"] = "مستخدم جديد";
+$_["text_table_username"] = "اسم المستخدم";
+$_["text_table_group"] = "المجموعه التابع لها";
+$_["text_table_email"] = "البريد الالكتروني";
+$_["text_table_subscription_date"] = "تاريخ الانضمام";
+$_["text_table_last_login"] = "اخر وقت دخول";
+$_["text_table_control"] = "التحكم";

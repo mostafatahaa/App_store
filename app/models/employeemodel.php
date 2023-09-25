@@ -13,8 +13,8 @@ class EmployeeModel extends AbstractModel
     public $salary;
     public $address;
 
-    protected static $table_name = "employees";
-    protected static $primary_key = "id";
+    protected static $table_name = "";
+    protected static $primary_key = "userId";
 
     protected static $table_schema = [
         "name"      => self::TYPE_STR,
