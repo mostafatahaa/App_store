@@ -4,7 +4,7 @@ namespace PHPMVC;
 
 use PHPMVC\LIB\Language;
 use PHPMVC\LIB\FrontController;
-use PHPMVC\LIB\Template;
+use PHPMVC\LIB\TEMPLATE\Template;
 
 if (!defined("DS")) {
     define("DS", DIRECTORY_SEPARATOR);

@@ -94,6 +94,8 @@ body {
     height: calc(100% - 80px);
     border-bottom-left-radius: 20px;
     transition: all 0.3s ease;
+    overflow-y: scroll;
+
 }
 
 .wrapper .sidebar ul li a {
@@ -185,4 +187,17 @@ body {
 
 .delete {
     padding-left: 18px;
+}
+
+.header-text {
+    font-size: 23px;
+    background-color: white;
+    width: fit-content;
+    padding: 13px;
+    border-radius: 14px;
+    margin-bottom: 22px;
+}
+
+.selected {
+    background-color: #0c1c4d;
 }
