@@ -1,7 +1,7 @@
 <title><?= $title ?></title>
 <div class="main_container">
     <h1 class="header-text"><?= $title ?></h1>
-    <a style="float: right;padding: 10px;" href="/usersgroups/add"><button type="button" class="btn btn-primary"><?= $text_add_privileges ?></button></a>
+    <a style="float: right;padding: 10px;" href="/privileges/create"><button type="button" class="btn btn-primary"><?= $text_add_privileges ?></button></a>
 
     <table class="table table-striped table-white">
         <?php if (isset($_SESSION["message"])) : ?>
@@ -26,7 +26,7 @@
                 foreach ($privileges as $privilege) :
             ?>
                     <tr>
-                        <td><?= $privilege->Privileges ?></td>
+                        <td><?= $privilege->privilegesTitle ?></td>
                         <td>
                             <div class="edit-delete">
                                 <a class="icon" href="/group/edit/<?= $privilege->privilegeId ?>"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #0043b8;"></i></a>
