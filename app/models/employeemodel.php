@@ -23,9 +23,4 @@ class EmployeeModel extends AbstractModel
         "salary"    => self::TYPE_DEC,
         "address"   => self::TYPE_STR,
     ];
-
-    public static function get_table_name()
-    {
-        return self::$table_name;
-    }
 }

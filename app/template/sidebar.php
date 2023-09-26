@@ -56,19 +56,19 @@
                 <span class="title"><?= $text_users_list ?></span>
             </a></li>
 
-        <li><a href="#">
+        <li class="<?= $this->matchUrl('/usersgroup') === true ? ' selected' : '' ?>"><a href="/usersgroup">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_users_group ?></span>
             </a></li>
-        <li><a href="reports">
+        <li><a href="/privileges">
                 <span class="icon">
                     <i class="fa-solid fa-circle" style="color: #e4cf67;"></i>
                 </span>
-                <span class="title"><?= $text_reports ?></span>
+                <span class="title"><?= $text_users_privileges ?></span>
             </a></li>
         <li><a href="reports">
                 <span class="icon"><i class="fa-solid fa-chart-column"></i></i></span>
-                <span class="title"><?= $text_users_privileges ?></span>
+                <span class="title"><?= $text_reports ?></span>
             </a></li>
 
         <li><a href="notifications">
