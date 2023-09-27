@@ -14,10 +14,12 @@
                 <span class="icon"><i class="fa-solid fa-money-bill"></i></span>
                 <span class="title"><?= $text_expenses ?></span>
             </a></li>
+
         <li><a href="#">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_expenses_types ?></span>
             </a></li>
+
         <li><a href="#">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_expenses_daily ?></span>
@@ -27,10 +29,12 @@
                 <span class="icon"><i class="fa-solid fa-shop"></i></span>
                 <span class="title"><?= $text_store ?></span>
             </a></li>
+
         <li><a href="store">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_store_products ?></span>
             </a></li>
+
         <li><a href="store">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_store_products_type ?></span>
@@ -51,12 +55,12 @@
                 <span class="title"><?= $text_users ?></span>
             </a></li>
 
-        <li><a href="/users">
+        <li class="<?= $this->matchUrl('/users') === true ? ' selected' : '' ?>"><a href="/users">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_users_list ?></span>
             </a></li>
 
-        <li class="<?= $this->matchUrl('/usersgroup') === true ? ' selected' : '' ?>"><a href="/usersgroup">
+        <li class="<?= $this->matchUrl('/usersgroups') === true ? ' selected' : '' ?>"><a href="/usersgroups">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_users_group ?></span>
             </a></li>

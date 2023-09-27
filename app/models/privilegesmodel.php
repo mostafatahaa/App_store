@@ -11,11 +11,12 @@ class PrivilegesModel extends AbstractModel
     public $privilegeTitle;
 
     protected static $table_name = "app_users_privileges";
-    protected static $primary_key = "privilegesId";
 
     protected static $table_schema = [
-        "privilegesId"             => self::TYPE_INT,
-        "privileges"               => self::TYPE_STR,
-        "privilegesTitle"          => self::TYPE_STR,
+        "privilegeId"              => self::TYPE_INT,
+        "privilege"                => self::TYPE_STR,
+        "privilegeTitle"           => self::TYPE_STR,
     ];
+
+    protected static $primary_key = "privilegeId";
 }

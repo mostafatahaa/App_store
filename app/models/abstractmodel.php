@@ -21,7 +21,7 @@ class AbstractModel
         return trim($named_params, " ,");
     }
 
-    public function prepare_val(&$stmt)
+    public function prepare_val(\PDOStatement &$stmt)
     {
         foreach (static::$table_schema as $params => $type) {
             if ($type == 5) {

@@ -1,26 +1,18 @@
-<!-- <div class="main_container">
+<title><?= $title ?></title>
+<div class="main_container">
+    <legend><?= $text_legend ?></legend>
+    <h1 class="header-text"><?= $title ?></h1>
+
     <form method="post" style="width: 50%; margin:auto; padding-top:100px;">
 
         <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="text" class="form-control" name="name" value="<?= $employee->name ?>" aria-describedby="emailHelp" placeholder="Enter your name">
+            <label for="exampleInputEmail1"><?= $text_lable_privilege_title ?></label>
+            <input type="text" class="form-control" name="privilegeTitle" value="<?= $privilege->privilegeTitle ?>" aria-describedby="emailHelp" placeholder="Enter Privilege" maxlength="30">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="email" value="<?= $employee->email ?>" aria-describedby="emailHelp" placeholder="Enter email">
+            <label for="exampleInputEmail1"><?= $text_lable_privilege_url ?></label>
+            <input type="text" class="form-control" name="privilege" value="<?= $privilege->privilege ?>" aria-describedby=" emailHelp" placeholder="Enter Privilege" maxlength="30">
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">age</label>
-            <input type="number" class="form-control" name="age" value="<?= $employee->age ?>" placeholder="Your age">
-        </div>
-        <div class="form-group">
-            <label>Salary</label>
-            <input type="number" name="salary" class="form-control" value="<?= $employee->salary ?>" step="0.1" laceholder=" put your salary">
-        </div>
-        <div class="form-group">
-            <label>Address</label>
-            <input type="text" class="form-control" name="address" value="<?= $employee->address ?>" placeholder="Your Address">
-        </div>
-        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" name="submit" class="btn btn-primary"><?= $text_lable_privilege_save ?></button>
     </form>
-</div> -->
+</div>

@@ -4,7 +4,7 @@ namespace PHPMVC\Models;
 
 use PHPMVC\Models\AbstractModel;
 
-class UsersGroupModel extends AbstractModel
+class UsersGroupsModel extends AbstractModel
 {
     public $groupId;
     public $groupName;

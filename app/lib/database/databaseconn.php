@@ -4,10 +4,10 @@ namespace PHPMVC\LIB\Database;
 
 class DatabaseConn
 {
-    private static $host_name = DATABASE_HOST_NAME;
-    private static $db_name = DATABASE_DB_NAME;
-    private static $pass = DATABASE_PASSWORD;
-    private static $user = DATABASE_USER_NAME;
+    private static $host_name   = DATABASE_HOST_NAME;
+    private static $db_name     = DATABASE_DB_NAME;
+    private static $pass        = DATABASE_PASSWORD;
+    private static $user        = DATABASE_USER_NAME;
     public  static $pdo;
 
 
@@ -18,7 +18,7 @@ class DatabaseConn
 
             $dsn = "mysql://hostname=" . self::$host_name . ";dbname=" . self::$db_name;
             try {
-                self::$pdo = new \PDO($dsn, self::$user, self::$pass);
+                self::$pdo = new \PDO($dsn, self::$user, self::$pass,  array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"));
                 self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             } catch (\PDOException $e) {
                 echo "failed connection";
