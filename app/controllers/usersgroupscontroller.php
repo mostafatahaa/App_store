@@ -50,4 +50,79 @@ class UsersGroupsController extends AbstractController
         }
         $this->_view();
     }
+
+    public function editAction()
+    {
+        $id = $this->filter_int($this->_params[0]);
+        $group = UsersGroupsModel::get_by_key($id);
+        if ($group === false) {
+            $this->redirect("/usersgroups");
+        }
+
+        $this->_language->load("template.common");
+        $this->_language->load("usersgroups.edit");
+        $this->_language->load("usersgroups.lables");
+        $this->_data["group"] = $group;
+        $this->_data["privileges"] = PrivilegesModel::get_all();
+        $groupPrivileges = UsersGroupsPrivilegesModel::get_by(["groupId" => $group->groupId]);
+
+        $extract_privileges_id = [];
+        if ($groupPrivileges) {
+            foreach ($groupPrivileges as $privilege) {
+                $extract_privileges_id[] = $privilege->privilegeId;
+            }
+        }
+        $this->_data["groupPrivileges"] = $extract_privileges_id;
+
+
+        if (isset($_POST["submit"])) {
+            $group->groupName = $this->filter_str($_POST["groupName"]);
+
+            if ($group->save()) {
+                if ($_POST["privileges"] && is_array($_POST["privileges"])) {
+                    //NOTE: deleted and added privileges ids without ==> important to understand
+                    $privilegeIdsToBeDelete = array_diff($extract_privileges_id, $_POST["privileges"]);
+                    $privilegeIdsToBeAded = array_diff($_POST["privileges"], $extract_privileges_id);
+
+                    // Deleted unwanted privileges
+                    foreach ($privilegeIdsToBeDelete as $deletePrivilege) {
+                        $unwantedPrivileges = UsersGroupsPrivilegesModel::get_by(["privilegeId" => $deletePrivilege, "groupId" => $group->groupId]);
+                        $unwantedPrivileges->current()->delete();
+                    }
+
+                    // Add new privileges
+                    foreach ($privilegeIdsToBeAded as $privilegeId) {
+                        $groupPrivileges = new UsersGroupsPrivilegesModel;
+                        $groupPrivileges->groupId = $group->groupId;
+                        $groupPrivileges->privilegeId = $privilegeId;
+                        $groupPrivileges->save();
+                    }
+                }
+                $this->redirect("/usersgroups");
+            }
+        }
+        $this->_view();
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->filter_int($this->_params[0]);
+        $group = UsersGroupsModel::get_by_key($id);
+
+        if ($group === false) {
+            $this->redirect("/usersgroups");
+        }
+
+        $groupPrivileges = UsersGroupsPrivilegesModel::get_by(["groupId" => $group->groupId]);
+
+        if ($groupPrivileges) {
+            foreach ($groupPrivileges as $groupPrivilege) {
+                $groupPrivilege->delete();
+            }
+        }
+
+        if ($group->delete()) {
+            $this->redirect("/usersgroups");
+        }
+    }
 }

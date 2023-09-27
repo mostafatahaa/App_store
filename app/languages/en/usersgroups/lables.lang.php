@@ -1,6 +1,5 @@
 <?php
-$_["text_legend"] = "بيانات المجموعة";
-$_["text_lable_group_title"] = "اسم المجموعة";
-$_["text_lable_privilege"] = "الصلاحيات التابعة لهذه المجموعه";
-$_["text_lable_privilege_save"] = "حفظ";
-$_["text_lable_privilege_delete"] = "هل  تود حذف الصلاحية ؟";
+$_["text_legend"] = "Group Details";
+$_["text_lable_group_title"] = "Group Name";
+$_["text_lable_privilege"] = "Group Privileges";
+$_["text_lable_privilege_save"] = "Save";
