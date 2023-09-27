@@ -8,3 +8,4 @@ $_["text_table_email"] = "البريد الالكتروني";
 $_["text_table_subscription_date"] = "تاريخ الانضمام";
 $_["text_table_last_login"] = "اخر وقت دخول";
 $_["text_table_control"] = "التحكم";
+$_["text_delete_confirm"] = "هل  تود حذف الصلاحية ؟";

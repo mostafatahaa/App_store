@@ -30,7 +30,7 @@
                         <td>
                             <div class="edit-delete">
                                 <a class="icon" href="/usersgroups/edit/<?= $group->groupId ?>"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #0043b8;"></i></a>
-                                <span class="delete"><a class="icon" href="/usersgroups/delete/<?= $group->groupId ?>" onclick="if(!confirm('<?= $text_delete_confirm ?>')) return false;"><i class="fas fa-trash-alt fa-lg" style="color: #b8001c;"></i></a></span>
+                                <span class="delete"><a class="icon" href="/usersgroups/delete/<?= $group->groupId ?>" onclick="if(!confirm('<?= $text_lable_privilege_delete ?>')) return false;"><i class="fas fa-trash-alt fa-lg" style="color: #b8001c;"></i></a></span>
                             </div>
                         </td>
 
