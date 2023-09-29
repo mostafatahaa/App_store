@@ -4,7 +4,7 @@ define("SESSION_SAVE_PATH", dirname(realpath(__FILE__)) . DIRECTORY_SEPARATOR . 
 
 class AppSessionHandler extends SessionHandler
 {
-    private $seeeionName = 'MYAPPSESSION';
+    private $sessionName = 'MYAPPSESSION';
     private $sessionMaxLifetime = 0;        // this means session will end when you close your browser
     private $sessionSSL = false;
     private $sessionHTTPOnly = true;        // this means the cooke cannot be accessd through the client-side-script (javascript)
@@ -27,5 +27,15 @@ so we make it true to make php send session IDS in cookies
         ini_set('session.use_only_cookies', 1);
         ini_set('session.use_trans_sid', 0);
         ini_set('session.save_handler', "files");
+
+        session_name($this->sessionName); // this function used to get or set session name
+        session_save_path($this->sessionSavePath);
+        session_set_cookie_params(
+            $this->sessionMaxLifetime,
+            $this->sessionPath,
+            $this->sessionDomain,
+            $this->sessionSSL,
+            $this->sessionHTTPOnly
+        );
     }
 }
