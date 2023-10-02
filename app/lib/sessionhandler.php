@@ -2,7 +2,9 @@
 
 namespace PHPMVC\LIB;
 
-class SessionManager
+use SessionHandler;
+
+class SessionManager extends SessionHandler
 {
     private $sessionName = 'MYAPPSESSION';
     private $sessionMaxLifetime = 0;
@@ -34,6 +36,23 @@ class SessionManager
             $this->sessionSSL,
             $this->sessionHTTPOnly
         );
+        session_set_save_handler($this, true);
+    }
+
+    public function read($id)
+    {
+        $data = parent::read($id);
+        if (empty($data)) {
+            // Log an error or throw an exception
+            return "";
+        }
+        $decrypted_data = openssl_decrypt($data, $this->sessionCipherAlgo, $this->sessionCipherKey);
+        return ($decrypted_data === false) ? "" : $decrypted_data;
+    }
+
+    public function write($id, $data)
+    {
+        return parent::write($id, openssl_encrypt($data, $this->sessionCipherAlgo, $this->sessionCipherKey));
     }
 
     // this magic method invoked when accessing inaccessible or non-existent properties
@@ -63,7 +82,7 @@ class SessionManager
         if (session_id() === "") {
             if (session_start()) {
                 $this->setSessionStartTime();
-                $this->isSessionValidity();
+                $this->checkSessionValidity();
             }
         }
     }
@@ -76,10 +95,13 @@ class SessionManager
         return true;
     }
 
-    private function isSessionValidity()
+    private function checkSessionValidity()
     {
         if ((time() - $this->sessionStartTime) > ($this->timeToLive * 60)) {
             $this->renewSession();
+            // we use this here so when session id changes
+            // fingerPrint store the new session i
+            $this->isValidFingerPrint();
         }
         return true;
     }
@@ -107,15 +129,37 @@ class SessionManager
         session_destroy();
     }
 
+    private function generateFingerPrint()
+    {
+        $userAgentId = $_SERVER["HTTP_USER_AGENT"];
+        $this->cipherKey = random_bytes(20);
+        $sessionId = session_id();
+        $this->fingerPrint = md5($userAgentId . $this->cipherKey . $sessionId);
+    }
+
     // we use this function to secure the sessions and make sure
     // that the same client is the one who is useing the app.
-    public function checkFingerPrint()
+    // for example if any hacker create a cookie from his device to access in user
+    // her cookie will kill because i set HTTP_USER_AGENT and sessionId and random number
+    public function isValidFingerPrint()
     {
         if (!isset($this->fingerPrint)) {
-            $userAgentId = $_SERVER["HTTP_USER_AGENT"];
-            $this->cipherKey = random_bytes(20);
-            $sessionId = session_id();
-            $this->fingerPrint = md5($userAgentId . $this->cipherKey . $sessionId);
+            $this->generateFingerPrint();
         }
+
+        $fingerPrint = md5($_SERVER["HTTP_USER_AGENT"] . $this->cipherKey . session_id());
+        if ($fingerPrint === $this->fingerPrint) {
+            return true;
+        }
+        return false;
     }
 }
+
+
+
+
+$sessions = new SessionManager();
+$sessions->start();
+if (!$sessions->isValidFingerPrint()) {
+    $sessions->kill();
+};
