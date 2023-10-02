@@ -9,18 +9,17 @@ class FrontController
     private $_controller    = "index";
     private $_action        = "default";
     private $_params        = [];
-
+    private $_registry;
     private $_template;
-    private $_language;
 
     const NOT_FOUND_ACTION = "notFoundAction";
     const NOT_FOUND_CONTROLLER = "PHPMVC\Controllers\\NotFoundController";
 
     // using dependency injection
-    public function __construct(Template $template, Language $language)
+    public function __construct(Template $template, Registry $registry)
     {
         $this->_template = $template;
-        $this->_language = $language;
+        $this->_registry = $registry;
         $this->_url();
     }
 
@@ -56,7 +55,7 @@ class FrontController
         $controller->set_action($this->_action);
         $controller->set_params($this->_params);
         $controller->set_template($this->_template);
-        $controller->set_language($this->_language);
+        $controller->set_registry($this->_registry);
         $controller->$action_name();
     }
 }

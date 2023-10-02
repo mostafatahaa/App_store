@@ -13,8 +13,9 @@ class PrivilegesController extends AbstractController
     use Helper;
     public function defaultAction()
     {
-        $this->_language->load("template.common");
-        $this->_language->load("privileges.default");
+        var_dump($this);
+        $this->language->load("template.common");
+        $this->language->load("privileges.default");
 
         $this->_data["privileges"] = PrivilegesModel::get_all();
 
@@ -24,9 +25,9 @@ class PrivilegesController extends AbstractController
     // TODO: you need to implement csrf prevention and know what is it
     public function createAction()
     {
-        $this->_language->load("template.common");
-        $this->_language->load("privileges.lables");
-        $this->_language->load("privileges.create");
+        $this->language->load("template.common");
+        $this->language->load("privileges.lables");
+        $this->language->load("privileges.create");
 
         if (isset($_POST["submit"])) {
             $privilege = new PrivilegesModel();
@@ -51,9 +52,9 @@ class PrivilegesController extends AbstractController
 
         $this->_data["privilege"] = $privilege;
 
-        $this->_language->load("template.common");
-        $this->_language->load("privileges.lables");
-        $this->_language->load("privileges.edit");
+        $this->language->load("template.common");
+        $this->language->load("privileges.lables");
+        $this->language->load("privileges.edit");
 
         if (isset($_POST["submit"])) {
             $privilege->privilegeTitle      = $this->filter_str($_POST["privilegeTitle"]);

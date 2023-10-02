@@ -1,4 +1,9 @@
 <title><?= $title ?></title>
+<?php
+echo '<pre>';
+var_dump($this);
+echo '</pre>';
+?>
 <div class="main_container">
     <h1 class="header-text"><?= $title ?></h1>
     <a style="float: right;padding: 10px;" href="/privileges/create"><button type="button" class="btn btn-primary"><?= $text_add_privileges ?></button></a>

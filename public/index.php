@@ -4,6 +4,7 @@ namespace PHPMVC;
 
 use PHPMVC\LIB\Language;
 use PHPMVC\LIB\FrontController;
+use PHPMVC\LIB\Registry;
 use PHPMVC\LIB\SessionManager;
 use PHPMVC\LIB\TEMPLATE\Template;
 
@@ -25,5 +26,9 @@ if (!isset($session->lang)) {
 $template = new Template($template_parts);
 $language = new Language();
 
-$front_controller = new FrontController($template, $language);
+$registry = Registry::getInstance();
+$registry->session  = $session;
+$registry->language = $language;
+
+$front_controller = new FrontController($template, $registry);
 $front_controller->dispatch();

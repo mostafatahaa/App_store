@@ -9,12 +9,21 @@ class Template
     private $_template_parts;
     private $_action_view;
     private $_data;
+    private $_registry;
 
+    public function __get($key)
+    {
+        return $this->_registry->$key;
+    }
     public function __construct(array $parts)
     {
         $this->_template_parts = $parts;
     }
 
+    public function set_registry($registry)
+    {
+        $this->_registry = $registry;
+    }
 
     public function set_action_view_file($action_view_path)
     {

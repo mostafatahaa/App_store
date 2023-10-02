@@ -15,9 +15,9 @@ class UsersGroupsController extends AbstractController
 
     public function defaultAction()
     {
-        $this->_language->load("template.common");
-        $this->_language->load("usersgroups.default");
-        $this->_language->load("usersgroups.lables");
+        $this->language->load("template.common");
+        $this->language->load("usersgroups.default");
+        $this->language->load("usersgroups.lables");
 
 
         $this->_data["groups"] = UsersGroupsModel::get_all();
@@ -27,9 +27,9 @@ class UsersGroupsController extends AbstractController
 
     public function createAction()
     {
-        $this->_language->load("template.common");
-        $this->_language->load("usersgroups.create");
-        $this->_language->load("usersgroups.lables");
+        $this->language->load("template.common");
+        $this->language->load("usersgroups.create");
+        $this->language->load("usersgroups.lables");
 
         $this->_data["privileges"] = PrivilegesModel::get_all();
         if (isset($_POST["submit"])) {
@@ -59,9 +59,9 @@ class UsersGroupsController extends AbstractController
             $this->redirect("/usersgroups");
         }
 
-        $this->_language->load("template.common");
-        $this->_language->load("usersgroups.edit");
-        $this->_language->load("usersgroups.lables");
+        $this->language->load("template.common");
+        $this->language->load("usersgroups.edit");
+        $this->language->load("usersgroups.lables");
         $this->_data["group"] = $group;
         $this->_data["privileges"] = PrivilegesModel::get_all();
         $groupPrivileges = UsersGroupsPrivilegesModel::get_by(["groupId" => $group->groupId]);

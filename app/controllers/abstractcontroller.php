@@ -10,10 +10,15 @@ class AbstractController
     protected $_action;
     protected $_params;
     protected $_template;
-    protected $_language;
+    protected $_registry;
 
     protected $_data = [];
 
+
+    public function __get($key)
+    {
+        return $this->_registry->$key;
+    }
     public function notFoundAction()
     {
         echo $this->_view();
@@ -33,14 +38,14 @@ class AbstractController
     {
         $this->_params = $params_name;
     }
-    public function set_language($language)
-    {
-        $this->_language = $language;
-    }
 
     public function set_template($template)
     {
         $this->_template = $template;
+    }
+    public function set_registry($registry)
+    {
+        $this->_registry = $registry;
     }
 
     protected function _view()
@@ -49,7 +54,8 @@ class AbstractController
         if (!file_exists($view) || $this->_action == FrontController::NOT_FOUND_ACTION) {
             $view = VIEWS_PATH . "notfound" . DS .  "notFound.view.php ";
         }
-        $this->_data = array_merge($this->_data, $this->_language->get_dictionary());
+        $this->_data = array_merge($this->_data, $this->language->get_dictionary());
+        $this->_template->set_registry($this->_registry);
         $this->_template->set_action_view_file($view);
         $this->_template->set_app_data($this->_data);
         $this->_template->render_app();

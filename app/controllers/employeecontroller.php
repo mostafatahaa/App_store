@@ -13,8 +13,8 @@ class EmployeeController extends AbstractController
     use Helper;
     public function defaultAction()
     {
-        $this->_language->load("template.common");
-        $this->_language->load("employee.default");
+        $this->language->load("template.common");
+        $this->language->load("employee.default");
 
         // $this->_data["employees"] = EmployeeModel::get_all();
         $this->_view();
@@ -49,8 +49,8 @@ class EmployeeController extends AbstractController
             $this->redirect("/employee");
         }
 
-        $this->_language->load("employee.default");
-        $this->_language->load("template.common");
+        $this->language->load("employee.default");
+        $this->language->load("template.common");
 
         $this->_data["employee"] = $emp;
 
@@ -70,7 +70,7 @@ class EmployeeController extends AbstractController
 
     public function deleteAction()
     {
-        $this->_language->load("template.common");
+        $this->language->load("template.common");
         $id = filter_var($this->_params[0], FILTER_SANITIZE_NUMBER_INT);
         $emp = EmployeeModel::get_by_key($id);
 

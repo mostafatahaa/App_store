@@ -9,7 +9,7 @@ class NotFoundController extends AbstractController
     {
 
         // $this->$this->_language->load("template.common");
-        $this->_language->load("template.common");
+        $this->language->load("template.common");
 
         $this->_view();
     }
