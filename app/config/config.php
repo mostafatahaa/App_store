@@ -17,4 +17,4 @@ defined("DATABASE_DB_NAME")         ? null : define("DATABASE_DB_NAME", "storedb
 
 defined("APP_DEFAULT_LANGUAGE")     ? null : define("APP_DEFAULT_LANGUAGE", "ar");
 
-define("SESSION_SAVE_PATH", dirname(realpath(__FILE__)) . DS . "sessions");
+define("SESSION_SAVE_PATH", APP_PATH . DS . ".." . DS . "public" . DS . "sessions");
