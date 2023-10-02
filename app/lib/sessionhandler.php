@@ -89,4 +89,33 @@ class SessionManager
         $this->sessionStartTime = time();
         return session_regenerate_id(true);
     }
+
+    // function kill session
+    public function kill()
+    {
+        session_unset(); // we use this tom free app for all exists session variables
+        // delete cookie
+        setcookie(
+            $this->sessionName,
+            "",
+            time() - 1000,
+            $this->sessionPath,
+            $this->sessionDomain,
+            $this->sessionSSL,
+            $this->sessionHTTPOnly
+        );
+        session_destroy();
+    }
+
+    // we use this function to secure the sessions and make sure
+    // that the same client is the one who is useing the app.
+    public function checkFingerPrint()
+    {
+        if (!isset($this->fingerPrint)) {
+            $userAgentId = $_SERVER["HTTP_USER_AGENT"];
+            $this->cipherKey = random_bytes(20);
+            $sessionId = session_id();
+            $this->fingerPrint = md5($userAgentId . $this->cipherKey . $sessionId);
+        }
+    }
 }
