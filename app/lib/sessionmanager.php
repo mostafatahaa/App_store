@@ -36,7 +36,7 @@ class SessionManager extends SessionHandler
             $this->sessionSSL,
             $this->sessionHTTPOnly
         );
-        // session_set_save_handler($this, true);
+        session_set_save_handler($this, true);
     }
 
     public function read($id)

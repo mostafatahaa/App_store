@@ -18,8 +18,8 @@ $template_parts = require_once ".." . DS . "app" . DS . "config" . DS . "templat
 $session = new SessionManager();
 $session->start();
 
-if (!isset($_SESSION["lang"])) {
-    $_SESSION["lang"] = APP_DEFAULT_LANGUAGE;
+if (!isset($session->lang)) {
+    $session->lang = APP_DEFAULT_LANGUAGE;
 }
 
 $template = new Template($template_parts);
