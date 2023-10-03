@@ -39,6 +39,11 @@ class SessionManager extends SessionHandler
         session_set_save_handler($this, true);
     }
 
+    public function __unset($key)
+    {
+        unset($_SESSION[$key]);
+    }
+
     public function read($id)
     {
         $data = parent::read($id);
