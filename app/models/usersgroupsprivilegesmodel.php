@@ -17,4 +17,17 @@ class UsersGroupsPrivilegesModel extends AbstractModel
         "privilegeId"         => self::TYPE_INT,
         "groupId"              => self::TYPE_STR,
     ];
+
+    public static function getGroupPrivileges(UsersGroupsModel $group)
+    {
+        $groupPrivileges = self::get_by(["groupId" => $group->groupId]);
+
+        $extract_privileges_id = [];
+        if ($groupPrivileges) {
+            foreach ($groupPrivileges as $privilege) {
+                $extract_privileges_id[] = $privilege->privilegeId;
+            }
+        }
+        return $extract_privileges_id;
+    }
 }

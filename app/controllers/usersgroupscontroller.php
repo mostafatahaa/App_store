@@ -64,15 +64,8 @@ class UsersGroupsController extends AbstractController
         $this->language->load("usersgroups.lables");
         $this->_data["group"] = $group;
         $this->_data["privileges"] = PrivilegesModel::get_all();
-        $groupPrivileges = UsersGroupsPrivilegesModel::get_by(["groupId" => $group->groupId]);
 
-        $extract_privileges_id = [];
-        if ($groupPrivileges) {
-            foreach ($groupPrivileges as $privilege) {
-                $extract_privileges_id[] = $privilege->privilegeId;
-            }
-        }
-        $this->_data["groupPrivileges"] = $extract_privileges_id;
+        $extract_privileges_id = $this->_data["groupPrivileges"] = UsersGroupsPrivilegesModel::getGroupPrivileges($group);
 
 
         if (isset($_POST["submit"])) {
