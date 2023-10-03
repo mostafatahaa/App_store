@@ -1,5 +1,4 @@
-<title><?= $title ?></title>
-<div class="main_container">
+    <title><?= $title ?></title>
     <legend><?= $text_legend ?></legend>
     <h1 class="header-text"><?= $title ?></h1>
 
@@ -15,4 +14,4 @@
         </div>
         <button type="submit" name="submit" class="btn btn-primary"><?= $text_lable_privilege_save ?></button>
     </form>
-</div>
+    </div>

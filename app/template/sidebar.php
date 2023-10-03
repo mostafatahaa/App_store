@@ -88,3 +88,12 @@
     </ul>
 
 </div>
+<!-- this will be at the start of the view files -->
+<div class="main_container">
+    <?php $messages = $this->messenger->getMessage();
+    if (!empty($messages)) : foreach ($messages as $message) : ?>
+            <div class="alert alert-primary t<?= $message[1] ?>" role="alert" style="background-color: #b8001c;">
+                <?php echo $message[0] ?>
+            </div>
+    <?php endforeach;
+    endif; ?>

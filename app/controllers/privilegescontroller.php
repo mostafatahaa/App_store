@@ -35,7 +35,7 @@ class PrivilegesController extends AbstractController
             $privilege->privilege           = $this->filter_str($_POST["privilege"]);
 
             if ($privilege->save()) {
-                $this->messenger->add("تم حفظ الصلاحية بنجاح");
+                $this->messenger->add("تم حفظ الصلاحية بنجاح", Messenger::APP_MESSAGE_ERROR);
                 $this->redirect("/privileges");
             }
         }
