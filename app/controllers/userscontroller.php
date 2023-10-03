@@ -15,4 +15,8 @@ class UsersController extends AbstractController
 
         $this->_view();
     }
+
+    public function createAction()
+    {
+    }
 }
