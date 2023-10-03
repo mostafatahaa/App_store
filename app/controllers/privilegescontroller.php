@@ -4,6 +4,7 @@ namespace PHPMVC\Controllers;
 
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
+use PHPMVC\LIB\Messenger;
 use PHPMVC\Models\PrivilegesModel;
 use PHPMVC\Models\UsersGroupsPrivilegesModel;;
 
@@ -13,7 +14,6 @@ class PrivilegesController extends AbstractController
     use Helper;
     public function defaultAction()
     {
-        var_dump($this);
         $this->language->load("template.common");
         $this->language->load("privileges.default");
 
@@ -35,6 +35,7 @@ class PrivilegesController extends AbstractController
             $privilege->privilege           = $this->filter_str($_POST["privilege"]);
 
             if ($privilege->save()) {
+                $this->messenger->add("تم حفظ الصلاحية بنجاح");
                 $this->redirect("/privileges");
             }
         }

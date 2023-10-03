@@ -5,7 +5,10 @@ namespace PHPMVC\LIB;
 class Messenger
 {
     private static $_instance;
+
     private $_session;
+
+    private $_messages  = [];
 
     const APP_MESSAGE_SUCCESS       = 1;
     const APP_MESSAGE_ERROR         = 2;
@@ -43,5 +46,15 @@ class Messenger
     private function messagesExists()
     {
         return isset($this->_session->messages);
+    }
+
+    public function getMessage()
+    {
+        if ($this->messagesExists()) {
+            $this->_messages = $this->_session->messages;
+            unset($this->_session->messages);
+            return $this->_messages;
+        }
+        return [];
     }
 }
