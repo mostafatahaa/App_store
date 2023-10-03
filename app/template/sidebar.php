@@ -55,7 +55,7 @@
                 <span class="title"><?= $text_users ?></span>
             </a></li>
 
-        <li class="<?= $this->matchUrl('/users') === true ? ' selected' : '' ?>"><a href="/users">
+        <li><a href="/users">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_users_list ?></span>
             </a></li>
