@@ -10,5 +10,6 @@ class TestController extends AbstractController
 
     public function defaultAction()
     {
+        echo password_hash("encryptedkey", CRYPT_BLOWFISH);
     }
 }
