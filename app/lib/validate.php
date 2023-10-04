@@ -126,7 +126,10 @@ trait Validate
                 foreach ($validationRoles as $validationRole) {
                     if (preg_match_all("/(minimum)\((\d+)\)/", $validationRole, $match)) {
                         if ($this->minimum($value, $match[2][0]) === false) {
-                            $this->messenger->add($this->language->get_dictionary()["text_lable_" . $fieldName] . " " . $this->language->get_dictionary()["text_error_" . $match[1][0]], Messenger::APP_MESSAGE_ERROR);
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
                         }
                     }
                 }

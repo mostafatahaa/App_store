@@ -6,10 +6,20 @@ class Language
 {
     private $dictionary = [];
 
+    // this function will get specific key form my dictionary
     public function get($key)
     {
         if (array_key_exists($key, $this->dictionary)) {
             return $this->dictionary[$key];
+        }
+    }
+
+    public function feedKey($key, $data)
+    {
+        if (array_key_exists($key, $this->dictionary)) {
+            // added text_erro msg and field name and validationRole to data array
+            array_unshift($data, $this->dictionary[$key]);
+            return call_user_func_array("sprintf", $data);
         }
     }
 

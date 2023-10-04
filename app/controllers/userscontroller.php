@@ -15,7 +15,7 @@ class UsersController extends AbstractController
         "confirmPassword"       => "requireVal|minimum(6)",
         "email"                 => "requireVal|email",
         "confirmEmail"          => "requireVal|email",
-        "phoneNumber"           => "alphaNum|max(15)",
+        "phoneNumber"           => "alphaNum|maximum(15)",
         "groupId"               => "requireVal|int",
 
     ];

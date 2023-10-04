@@ -9,7 +9,7 @@
         <input type="text" class="form-control" name="userName" aria-describedby="emailHelp" maxlength="30">
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1"><?= $text_lable_pasword ?></label>
+        <label for="exampleInputEmail1"><?= $text_lable_password ?></label>
         <input type="password" class="form-control" name="confirmPassword" aria-describedby="emailHelp">
     </div>
     <div class="form-group">
