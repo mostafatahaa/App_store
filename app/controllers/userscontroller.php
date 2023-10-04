@@ -2,11 +2,16 @@
 
 namespace PHPMVC\Controllers;
 
+use PHPMVC\LIB\Helper;
+use PHPMVC\LIB\InputFilter;
 use PHPMVC\Models\UserModel;
 use PHPMVC\Models\UsersGroupsModel;
 
 class UsersController extends AbstractController
 {
+    use InputFilter;
+    use Helper;
+
 
     private $_createActionRoles =
     [
@@ -43,6 +48,8 @@ class UsersController extends AbstractController
         if (isset($_POST["submit"]) && $this->isValid($this->_createActionRoles, $_POST)) {
             // Create new user
             $user = new UserModel();
+            $user->username = $this->filter_str($_POST['userName']);
+            $user->cryptPassword($_POST['password']);
         }
         $this->_view();
     }

@@ -8,6 +8,7 @@ class UserModel extends AbstractModel
 {
     public $userId;
     public $username;
+    public $password;
     public $email;
     public $phoneNumber;
     public $subscriptionDate;
@@ -32,5 +33,12 @@ class UserModel extends AbstractModel
     public static function get_table_name()
     {
         return self::$table_name;
+    }
+
+    public function cryptPassword($password)
+    {
+
+        $salt = '$2a$06$Dnp9Kyu1sxjAvpXuh7XG4i$';
+        $this->password = crypt($password, $salt);
     }
 }
