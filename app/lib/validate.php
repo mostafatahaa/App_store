@@ -125,9 +125,57 @@ trait Validate
                 $value = $inputType[$fieldName];
                 foreach ($validationRoles as $validationRole) {
                     if (preg_match_all("/(minimum)\((\d+)\)/", $validationRole, $match)) {
+                        // in case of minimume validationRole
                         if ($this->minimum($value, $match[2][0]) === false) {
                             $this->messenger->add(
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                        }
+                    } elseif (preg_match_all("/(maximum)\((\d+)\)/", $validationRole, $match)) {
+                        // in case of maximum validationRole
+                        if ($this->maximum($value, $match[2][0]) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                        }
+                    } elseif (preg_match_all("/(lessThan)\((\d+)\)/", $validationRole, $match)) {
+                        // in case of lessThan validationRole
+                        if ($this->lessThan($value, $match[2][0]) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                        }
+                    } elseif (preg_match_all("/(greaterThan)\((\d+)\)/", $validationRole, $match)) {
+                        // in case of greaterThan validationRole
+                        if ($this->greaterThan($value, $match[2][0]) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                        }
+                    } elseif (preg_match_all("/(between)\((\d+),(\d+)\)/", $validationRole, $match)) {
+                        // in case of between validationRole
+                        if ($this->greaterThan($value, $match[2][0], $match[3][0]) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0], $match[3][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                        }
+                    } elseif (preg_match_all("/(floatLike)\((\d+),(\d+),(\d+)\)/", $validationRole, $match)) {
+                        // in case of between validationRole
+                        if ($this->greaterThan($value, $match[2][0], $match[3][0]) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0], $match[3][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                        }
+                    } else {
+                        if ($this->$validationRole($value) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $validationRole, [$this->language->get("text_lable_" . $fieldName)]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
                         }
