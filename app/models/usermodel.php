@@ -13,6 +13,7 @@ class UserModel extends AbstractModel
     public $subscriptionDate;
     public $lastLogin;
     public $groupId;
+    public $status;
 
     protected static $table_name = "app_users";
     protected static $primary_key = "userId";
@@ -25,6 +26,7 @@ class UserModel extends AbstractModel
         "subscriptionDate"  => self::TYPE_DATE,
         "lastLogin"         => self::TYPE_STR,
         "groupId"           => self::TYPE_INT,
+        "status"            => self::TYPE_INT,
     ];
 
     public static function get_table_name()

@@ -10,13 +10,13 @@ class UsersController extends AbstractController
 
     private $_createActionRoles =
     [
-        "userName"              => 'requireVal|between(3,12)|equal(125)',
-        "password"              => "requireVal|maximum(4)",
+        "userName"              => 'requireVal|between(3,12)',
+        "password"              => "requireVal|minimum(6)|equalField(confirmPassword)",
         "confirmPassword"       => "requireVal|minimum(6)",
         "email"                 => "requireVal|validateEmail",
         "confirmEmail"          => "requireVal|validateEmail",
         "phoneNumber"           => "alphaNum|maximum(15)",
-        "groupId"               => "requireVal|int",
+        "groupId"               => "requireVal|int"
 
     ];
 
@@ -39,8 +39,9 @@ class UsersController extends AbstractController
 
         $this->_data["groups"] = UsersGroupsModel::get_all();
 
-        if (isset($_POST["submit"])) {
-            $this->isValid($this->_createActionRoles, $_POST);
+        // check both request submit is exists and isValid methods return true
+        if (isset($_POST["submit"]) && $this->isValid($this->_createActionRoles, $_POST)) {
+            // Create new user
         }
         $this->_view();
     }

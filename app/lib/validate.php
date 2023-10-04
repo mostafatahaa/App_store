@@ -61,6 +61,11 @@ trait Validate
         return $val == $matchAgainst;
     }
 
+    public function equalField($val, $otherField)
+    {
+        return $val == $otherField;
+    }
+
     public function greaterThan($val, $matchAgainst)
     {
         if (is_string($val)) {
@@ -82,9 +87,9 @@ trait Validate
     public function maximum($val, $max)
     {
         if (is_string($val)) {
-            return $val <= $max;
-        } elseif (is_numeric($val)) {
             return  mb_strlen($val) <= $max;
+        } elseif (is_numeric($val)) {
+            return $val <= $max;
         }
     }
 
@@ -194,6 +199,16 @@ trait Validate
                             );
                             $errors[$fieldName] = true;
                         }
+                    } elseif (preg_match_all("/(equalField)\((\w+)\)/", $validationRole, $match)) {
+                        // in case of equale values 
+                        $otherFiledVal = $inputType[$match[2][0]];
+                        if ($this->equalField($value, $otherFiledVal) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $this->language->get("text_lable_" . $match[2][0])]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                            $errors[$fieldName] = true;
+                        }
                     } else {
                         if ($this->$validationRole($value) === false) {
                             $this->messenger->add(
@@ -206,6 +221,7 @@ trait Validate
                 }
             }
         }
+        // will return this request if any field has any error
         return empty($errors) ? true : false;
     }
 }

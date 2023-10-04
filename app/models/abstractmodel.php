@@ -9,7 +9,7 @@ class AbstractModel
     const TYPE_BOOL  = \PDO::PARAM_BOOL;
     const TYPE_INT   = \PDO::PARAM_INT;
     const TYPE_STR   = \PDO::PARAM_STR;
-    const TYPE_DATE  = \PDO::PARAM_STR;
+    const TYPE_DATE  = 6;
     const TYPE_DEC   = 5;
 
     // VALID DATE RANGE IS 1000-01-01 TO 9999-12-31

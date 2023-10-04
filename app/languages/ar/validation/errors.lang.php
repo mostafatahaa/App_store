@@ -1,6 +1,7 @@
 <?php
 $_["text_error_requireVal"] = " %s الحقل يجب أن يحتوي علي قيمة";
 $_["text_error_equal"] = "%s يجب أن تكون قيمته مساويه لـ %s";
+$_["text_error_equalField"] = "الحقل %s يجب أن تكون قيمته مساوية للحقل %s";
 $_["text_error_num"] = " %s الحقل يجب أن يكون رقم";
 $_["text_error_int"] = " %s الحقل يجب أن يكون رقم صحيح";
 $_["text_error_float"] = " %s  الحقل يجب أن يكون رقم عشري";
