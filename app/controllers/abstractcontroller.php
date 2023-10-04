@@ -3,9 +3,14 @@
 namespace PHPMVC\Controllers;
 
 use PHPMVC\LIB\FrontController;
+use PHPMVC\LIB\Validate;
 
 class AbstractController
 {
+
+    use Validate;
+
+
     protected $_controller;
     protected $_action;
     protected $_params;

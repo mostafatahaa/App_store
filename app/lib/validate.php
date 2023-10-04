@@ -19,7 +19,7 @@ trait Validate
 
     public function requireVal($val)
     {
-        return "" != $val || empty($val);
+        return "" !== $val || !empty($val);
     }
 
     public function num($val)
@@ -114,5 +114,24 @@ trait Validate
     public function validateUrl($val)
     {
         return (bool) preg_match($this->_regexPatterns["vurl"], $val);
+    }
+
+    public function isValid($roles, $inputType = "post")
+    {
+        $errors = [];
+        if (!empty($roles)) {
+            foreach ($roles as $fieldName => $validationRoles) {
+                $validationRoles = explode("|", $validationRoles);
+                $value = $inputType[$fieldName];
+                foreach ($validationRoles as $validationRole) {
+                    if (preg_match_all("/(minimum)\((\d+)\)/", $validationRole, $match)) {
+                        if ($this->minimum($value, $match[2][0]) === false) {
+                            $this->messenger->add($this->language->get_dictionary()["text_lable_" . $fieldName] . " " . $this->language->get_dictionary()["text_error_" . $match[1][0]], Messenger::APP_MESSAGE_ERROR);
+                        }
+                    }
+                }
+            }
+        }
+        return empty($errors) ? true : false;
     }
 }

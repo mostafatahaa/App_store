@@ -6,7 +6,7 @@ use PHPMVC\Models\AbstractModel;
 
 class UserModel extends AbstractModel
 {
-    public $useId;
+    public $userId;
     public $username;
     public $email;
     public $phoneNumber;
@@ -18,7 +18,7 @@ class UserModel extends AbstractModel
     protected static $primary_key = "userId";
 
     protected static $table_schema = [
-        "useId"             => self::TYPE_INT,
+        "userId"            => self::TYPE_INT,
         "username"          => self::TYPE_STR,
         "email"             => self::TYPE_INT,
         "phoneNumber"       => self::TYPE_STR,

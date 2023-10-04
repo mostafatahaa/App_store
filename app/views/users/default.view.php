@@ -1,18 +1,8 @@
 <title><?= $title ?></title>
 <h1 class="header-text"><?= $title ?></h1>
-<a style="float: right;padding: 10px;" href="/user/add"><button type="button" class="btn btn-primary"><?= $text_add_user ?></button></a>
+<a style="float: right;padding: 10px;" href="/users/create"><button type="button" class="btn btn-primary"><?= $text_add_user ?></button></a>
 
 <table class="table table-striped table-white">
-    <?php if (isset($_SESSION["message"])) : ?>
-        <div class="alert alert-primary" role="alert" style="background-color: #d3ffda;">
-            <?php echo $_SESSION["message"];
-            unset($_SESSION["message"]);
-
-            ?>
-        </div>
-    <?php endif ?>
-
-
     <thead>
         <tr class="table-head">
 
