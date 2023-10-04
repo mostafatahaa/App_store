@@ -42,6 +42,7 @@ class UsersController extends AbstractController
         // check both request submit is exists and isValid methods return true
         if (isset($_POST["submit"]) && $this->isValid($this->_createActionRoles, $_POST)) {
             // Create new user
+            $user = new UserModel();
         }
         $this->_view();
     }

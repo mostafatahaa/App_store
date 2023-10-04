@@ -221,7 +221,7 @@ trait Validate
                 }
             }
         }
-        // will return this request if any field has any error
+        // will return this request if any field has any errors
         return empty($errors) ? true : false;
     }
 }
