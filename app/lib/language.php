@@ -6,6 +6,13 @@ class Language
 {
     private $dictionary = [];
 
+    public function get($key)
+    {
+        if (array_key_exists($key, $this->dictionary)) {
+            return $this->dictionary[$key];
+        }
+    }
+
     public function load($path)
     {
         $default_lang = APP_DEFAULT_LANGUAGE;
