@@ -49,45 +49,50 @@ trait Validate
 
     public function lessThan($val, $matchAgainst)
     {
-        if (is_numeric($val)) {
-            return $val < $matchAgainst;
-        } elseif (is_string($val)) {
-            return  mb_strlen($val) < $matchAgainst;
+        if (is_string($val)) {
+            return mb_strlen($val) < $matchAgainst;
+        } elseif (is_numeric($val)) {
+            return  $val < $matchAgainst;
         }
+    }
+
+    public function equal($val, $matchAgainst)
+    {
+        return $val == $matchAgainst;
     }
 
     public function greaterThan($val, $matchAgainst)
     {
-        if (is_numeric($val)) {
+        if (is_string($val)) {
             return $val > $matchAgainst;
-        } elseif (is_string($val)) {
+        } elseif (is_numeric($val)) {
             return  mb_strlen($val) > $matchAgainst;
         }
     }
 
     public function minimum($val, $min)
     {
-        if (is_numeric($val)) {
+        if (is_string($val)) {
             return $val >= $min;
-        } elseif (is_string($val)) {
+        } elseif (is_numeric($val)) {
             return  mb_strlen($val) >= $min;
         }
     }
 
     public function maximum($val, $max)
     {
-        if (is_numeric($val)) {
+        if (is_string($val)) {
             return $val <= $max;
-        } elseif (is_string($val)) {
+        } elseif (is_numeric($val)) {
             return  mb_strlen($val) <= $max;
         }
     }
 
     public function between($val, $min, $max)
     {
-        if (is_numeric($val)) {
+        if (is_string($val)) {
             return $val >= $min && $val <= $max;
-        } elseif (is_string($val)) {
+        } elseif (is_numeric($val)) {
             return  mb_strlen($val) >= $min && mb_strlen($val) <= $max;
         }
     }
@@ -124,6 +129,8 @@ trait Validate
                 $validationRoles = explode("|", $validationRoles);
                 $value = $inputType[$fieldName];
                 foreach ($validationRoles as $validationRole) {
+                    // this to skip all errors and show one error
+                    if (array_key_exists($fieldName, $errors)) continue;
                     if (preg_match_all("/(minimum)\((\d+)\)/", $validationRole, $match)) {
                         // in case of minimume validationRole
                         if ($this->minimum($value, $match[2][0]) === false) {
@@ -131,6 +138,7 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
                         }
                     } elseif (preg_match_all("/(maximum)\((\d+)\)/", $validationRole, $match)) {
                         // in case of maximum validationRole
@@ -139,6 +147,7 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
                         }
                     } elseif (preg_match_all("/(lessThan)\((\d+)\)/", $validationRole, $match)) {
                         // in case of lessThan validationRole
@@ -147,6 +156,7 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
                         }
                     } elseif (preg_match_all("/(greaterThan)\((\d+)\)/", $validationRole, $match)) {
                         // in case of greaterThan validationRole
@@ -155,6 +165,7 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
                         }
                     } elseif (preg_match_all("/(between)\((\d+),(\d+)\)/", $validationRole, $match)) {
                         // in case of between validationRole
@@ -163,6 +174,7 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0], $match[3][0]]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
                         }
                     } elseif (preg_match_all("/(floatLike)\((\d+),(\d+),(\d+)\)/", $validationRole, $match)) {
                         // in case of between validationRole
@@ -171,6 +183,16 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0], $match[3][0]]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
+                        }
+                    } elseif (preg_match_all("/(equal)\((\w+)\)/", $validationRole, $match)) {
+                        // in case of equale values 
+                        if ($this->equal($value, $match[2][0]) === false) {
+                            $this->messenger->add(
+                                $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0]]),
+                                Messenger::APP_MESSAGE_ERROR
+                            );
+                            $errors[$fieldName] = true;
                         }
                     } else {
                         if ($this->$validationRole($value) === false) {
@@ -178,6 +200,7 @@ trait Validate
                                 $this->language->feedKey("text_error_" . $validationRole, [$this->language->get("text_lable_" . $fieldName)]),
                                 Messenger::APP_MESSAGE_ERROR
                             );
+                            $errors[$fieldName] = true;
                         }
                     }
                 }

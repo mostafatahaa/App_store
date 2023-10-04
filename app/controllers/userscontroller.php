@@ -10,7 +10,7 @@ class UsersController extends AbstractController
 
     private $_createActionRoles =
     [
-        "userName"              => 'requireVal|between(3,12)',
+        "userName"              => 'requireVal|between(3,12)|equal(125)',
         "password"              => "requireVal|maximum(4)",
         "confirmPassword"       => "requireVal|minimum(6)",
         "email"                 => "requireVal|validateEmail",
