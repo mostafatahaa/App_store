@@ -50,7 +50,7 @@ class UsersController extends AbstractController
         if (isset($_POST["submit"]) && $this->isValid($this->_createActionRoles, $_POST)) {
             // Create new user
             $user = new UserModel();
-            $user->username = $this->filter_str($_POST['userName']);
+            $user->userName = $this->filter_str($_POST['userName']);
             $user->cryptPassword($_POST['password']);
             $user->email = $this->filter_str($_POST["email"]);
             $user->phoneNumber = $this->filter_str($_POST["phoneNumber"]);

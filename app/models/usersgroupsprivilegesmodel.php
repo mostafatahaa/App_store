@@ -14,8 +14,9 @@ class UsersGroupsPrivilegesModel extends AbstractModel
     protected static $primary_key = "id";
 
     protected static $table_schema = [
+        "id"                  => self::TYPE_INT,
         "privilegeId"         => self::TYPE_INT,
-        "groupId"              => self::TYPE_STR,
+        "groupId"             => self::TYPE_STR,
     ];
 
     public static function getGroupPrivileges(UsersGroupsModel $group)

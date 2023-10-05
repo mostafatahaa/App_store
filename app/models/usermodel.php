@@ -7,7 +7,7 @@ use PHPMVC\Models\AbstractModel;
 class UserModel extends AbstractModel
 {
     public $userId;
-    public $username;
+    public $userName;
     public $password;
     public $email;
     public $phoneNumber;
@@ -17,11 +17,10 @@ class UserModel extends AbstractModel
     public $status;
 
     protected static $table_name = "app_users";
-    protected static $primary_key = "userId";
 
     protected static $table_schema = [
         "userId"            => self::TYPE_INT,
-        "username"          => self::TYPE_STR,
+        "userName"          => self::TYPE_STR,
         "email"             => self::TYPE_STR,
         "phoneNumber"       => self::TYPE_STR,
         "subscriptionDate"  => self::TYPE_DATE,
@@ -30,11 +29,7 @@ class UserModel extends AbstractModel
         "status"            => self::TYPE_INT,
         "password"          => self::TYPE_STR,
     ];
-
-    public static function get_table_name()
-    {
-        return self::$table_name;
-    }
+    protected static $primary_key = "userId";
 
     public function cryptPassword($password)
     {
@@ -46,7 +41,7 @@ class UserModel extends AbstractModel
     public static function get_all()
     {
         return self::get(
-            "SELECT au.*, aug.groupName groupName FROM " . self::$table_name . " au INNER JOIN app_users_groups aug ON aug.groupId = au.groupId"
+            'SELECT au.*, aug.groupName groupName FROM ' . self::$table_name . ' au INNER JOIN app_users_groups aug ON aug.groupId = au.groupId'
         );
     }
 }

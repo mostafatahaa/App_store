@@ -60,13 +60,17 @@ class AbstractModel
         return $stmt->execute();
     }
 
-    public function save()
+    public function save($primaryKeyCheck = true)
     {
+        if (false === $primaryKeyCheck) {
+            return $this->create();
+        }
         return $this->{static::$primary_key} === null ? $this->create() : $this->update();
     }
 
     public function delete()
     {
+
 
         $sql = "DELETE FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . $this->{static::$primary_key};
         $stmt = DatabaseConn::connect_db()->prepare($sql);

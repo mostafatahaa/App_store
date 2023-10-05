@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_email ?></label>
-        <input type="email" class="form-control" name="email" value="<?= $this->showValue("email") ?>" aria-describedby="emailHelp" maxlength="40">
+        <input type="email" class="form-control" name="email" value="<?= $this->showValue("confirmPassword") ?>" aria-describedby="emailHelp" maxlength="40">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_confirmEmail ?></label>
