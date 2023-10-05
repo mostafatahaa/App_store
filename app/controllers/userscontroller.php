@@ -4,6 +4,7 @@ namespace PHPMVC\Controllers;
 
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
+use PHPMVC\LIB\Messenger;
 use PHPMVC\Models\UserModel;
 use PHPMVC\Models\UsersGroupsModel;
 
@@ -40,6 +41,7 @@ class UsersController extends AbstractController
         $this->language->load("template.common");
         $this->language->load("user.create");
         $this->language->load("user.labels");
+        $this->language->load("user.messages");
         $this->language->load("validation.errors");
 
         $this->_data["groups"] = UsersGroupsModel::get_all();
@@ -50,6 +52,18 @@ class UsersController extends AbstractController
             $user = new UserModel();
             $user->username = $this->filter_str($_POST['userName']);
             $user->cryptPassword($_POST['password']);
+            $user->email = $this->filter_str($_POST["email"]);
+            $user->phoneNumber = $this->filter_str($_POST["phoneNumber"]);
+            $user->groupId = $this->filter_int($_POST["groupId"]);
+            $user->subscriptionDate = date("Y-m-d");
+            $user->lastLogin = date("Y-m-d H:i:s");
+            $user->status = 1;
+            if ($user->save()) {
+                $this->messenger->add($this->language->get("message_create_success"));
+            } else {
+                $this->messenger->add($this->language->get("message_create_falied"), Messenger::APP_MESSAGE_ERROR);
+            }
+            $this->redirect("/users");
         }
         $this->_view();
     }

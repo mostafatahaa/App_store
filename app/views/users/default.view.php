@@ -6,8 +6,6 @@
     <thead>
         <tr class="table-head">
 
-            <th scope="col"><?= $text_header ?></th>
-            <th scope="col"><?= $text_new_item ?></th>
             <th scope="col"><?= $text_table_username ?></th>
             <th scope="col"><?= $text_table_group ?></th>
             <th scope="col"><?= $text_table_email ?></th>
@@ -22,13 +20,11 @@
             foreach ($users as $user) :
         ?>
                 <tr>
-                    <td><?= $user->useId ?></td>
-                    <td><?= $user->username ?></td>
+                    <td><?= $user->userName ?></td>
+                    <td><?= $user->groupId ?></td>
                     <td><?= $user->email ?></td>
-                    <td><?= $user->phoneNumber ?></td>
                     <td><?= $user->subscriptionDate ?></td>
                     <td><?= $user->lastLogin ?></td>
-                    <td><?= $user->groupId ?></td>
                     <td>
                         <div class="edit-delete">
                             <a class="icon" href="/user/edit/<?= $user->id ?>"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #0043b8;"></i></a>

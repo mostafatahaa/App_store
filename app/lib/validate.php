@@ -95,9 +95,9 @@ trait Validate
 
     public function between($val, $min, $max)
     {
-        if (is_string($val)) {
+        if (is_numeric($val)) {
             return $val >= $min && $val <= $max;
-        } elseif (is_numeric($val)) {
+        } elseif (is_string($val)) {
             return  mb_strlen($val) >= $min && mb_strlen($val) <= $max;
         }
     }
@@ -174,7 +174,7 @@ trait Validate
                         }
                     } elseif (preg_match_all("/(between)\((\d+),(\d+)\)/", $validationRole, $match)) {
                         // in case of between validationRole
-                        if ($this->greaterThan($value, $match[2][0], $match[3][0]) === false) {
+                        if ($this->between($value, $match[2][0], $match[3][0]) === false) {
                             $this->messenger->add(
                                 $this->language->feedKey("text_error_" . $match[1][0], [$this->language->get("text_lable_" . $fieldName), $match[2][0], $match[3][0]]),
                                 Messenger::APP_MESSAGE_ERROR

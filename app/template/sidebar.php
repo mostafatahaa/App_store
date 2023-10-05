@@ -92,7 +92,7 @@
 <div class="main_container">
     <?php $messages = $this->messenger->getMessage();
     if (!empty($messages)) : foreach ($messages as $message) : ?>
-            <div class="alert alert-primary t<?= $message[1] ?>" role="alert" style="background-color: #b8001c;color:white;">
+            <div class="alert alert-primary t<?= $message[1] ?>" role="alert" style="color:white;">
                 <?php echo $message[0] ?>
             </div>
     <?php endforeach;

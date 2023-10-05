@@ -13,6 +13,6 @@ $_["text_error_between"] = "الحقل %s يجب أن تكون قيمته ماب
 $_["text_error_floatLike"] = "الحقل %s يجب أن يكون رقم عشري مكون من %s رقم قبل العلامه و %s رقم بعد العلامه";
 $_["text_error_validateDate"] = "الحقل%s يجب أن يكون تاريخ بتنسيق YYY-MM-DD";
 $_["text_error_validateEmail"] = "الحقل %s يجب أن يكون بريدا الكترونيا ex: someone@email.com";
-$_["text_error_validateEmail"] = "الحقل %s يجب أن يكون رابط صحيح ex: http://www.abc.com";
+$_["text_error_validateUrl"] = "الحقل %s يجب أن يكون رابط صحيح ex: http://www.abc.com";
 $_["text_error_minimum"] = "الحقل %s يجب أن تكون قيمته على الأقل %s (أحرف ان كان نصيا)";
 $_["text_error_maximum"] = "الحقل %s يجب أن تكون قيمته على الاكثر %s (أحرف ان كان نصيا)";

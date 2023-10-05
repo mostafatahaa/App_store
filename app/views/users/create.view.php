@@ -6,27 +6,27 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_userName ?></label>
-        <input type="text" class="form-control" name="userName" aria-describedby="emailHelp" maxlength="30">
+        <input type="text" class="form-control" name="userName" value="<?= $this->showValue("userName") ?>" aria-describedby="emailHelp" maxlength="30">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_password ?></label>
-        <input type="password" class="form-control" name="confirmPassword" aria-describedby="emailHelp">
+        <input type="password" class="form-control" name="password" value="<?= $this->showValue("password") ?>" aria-describedby="emailHelp">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_confirmPassword ?></label>
-        <input type="password" class="form-control" name="password" aria-describedby="emailHelp">
+        <input type="password" class="form-control" name="confirmPassword" value="<?= $this->showValue("confirmPassword") ?>" aria-describedby="emailHelp">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_email ?></label>
-        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" maxlength="40">
+        <input type="email" class="form-control" name="email" value="<?= $this->showValue("email") ?>" aria-describedby="emailHelp" maxlength="40">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_confirmEmail ?></label>
-        <input type="email" class="form-control" name="confirmEmail" aria-describedby="emailHelp" maxlength="40">
+        <input type="email" class="form-control" name="confirmEmail" value="<?= $this->showValue("confirmEmail") ?>" aria-describedby="emailHelp" maxlength="40">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_phoneNumber ?></label>
-        <input type="text" class="form-control" name="phoneNumber" aria-describedby="emailHelp">
+        <input type="text" class="form-control" name="phoneNumber" value="<?= $this->showValue("phoneNumber") ?>" aria-describedby="emailHelp">
     </div>
     <select class="form-select" name="groupId" aria-label="Default select example">
         <option selected><?= $text_user_groupId ?></option>

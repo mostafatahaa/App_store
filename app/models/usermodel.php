@@ -22,12 +22,13 @@ class UserModel extends AbstractModel
     protected static $table_schema = [
         "userId"            => self::TYPE_INT,
         "username"          => self::TYPE_STR,
-        "email"             => self::TYPE_INT,
+        "email"             => self::TYPE_STR,
         "phoneNumber"       => self::TYPE_STR,
         "subscriptionDate"  => self::TYPE_DATE,
         "lastLogin"         => self::TYPE_STR,
         "groupId"           => self::TYPE_INT,
         "status"            => self::TYPE_INT,
+        "password"          => self::TYPE_STR,
     ];
 
     public static function get_table_name()
@@ -40,5 +41,12 @@ class UserModel extends AbstractModel
 
         $salt = '$2a$06$Dnp9Kyu1sxjAvpXuh7XG4i$';
         $this->password = crypt($password, $salt);
+    }
+
+    public static function get_all()
+    {
+        return self::get(
+            "SELECT au.*, aug.groupName groupName FROM " . self::$table_name . " au INNER JOIN app_users_groups aug ON aug.groupId = au.groupId"
+        );
     }
 }
