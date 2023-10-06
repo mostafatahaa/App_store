@@ -2,15 +2,16 @@
 
 namespace PHPMVC\Models;
 
+use ArrayIterator;
 use PHPMVC\LIB\Database\DatabaseConn;
 
-class AbstractModel
+class AbstractModel extends ArrayIterator
 {
-    const TYPE_BOOL  = \PDO::PARAM_BOOL;
-    const TYPE_INT   = \PDO::PARAM_INT;
-    const TYPE_STR   = \PDO::PARAM_STR;
-    const TYPE_DATE  = 6;
-    const TYPE_DEC   = 5;
+    const TYPE_BOOL = \PDO::PARAM_BOOL;
+    const TYPE_STR = \PDO::PARAM_STR;
+    const TYPE_INT = \PDO::PARAM_INT;
+    const TYPE_DECIMAL = 4;
+    const TYPE_DATE = 5;
 
     // VALID DATE RANGE IS 1000-01-01 TO 9999-12-31
     const VALIDATE_DATE_STRING = '/^[1-9][1-9][1-9][1-9]-[0-1]?[0-2]-(?:[0-2]?[1-9]|[3][0-1])$/';
@@ -19,93 +20,89 @@ class AbstractModel
     const VALIDATE_DATE_NUMERIC = '^\d{6,8}$';
     const DEFAULT_MYSQL_DATE = '1970-01-01';
 
-    public static function create_named_params_sql()
-    {
-        $named_params = "";
-        foreach (static::$table_schema as $params => $type) {
-            $named_params .= "$params " . " = :" . "$params, ";
-        }
-        return trim($named_params, " ,");
-    }
+    private static $db;
 
-    public function prepare_val(\PDOStatement &$stmt)
+    private function prepareValues(\PDOStatement &$stmt)
     {
-        foreach (static::$table_schema as $params => $type) {
-            if ($type == 5) {
-                $filter_dec = filter_var($this->$params, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                $stmt->bindValue(":{$params}", $filter_dec);
+        foreach (static::$table_schema as $columnName => $type) {
+            if ($type == 4) {
+                $sanitizedValue = filter_var($this->$columnName, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                $stmt->bindValue(":{$columnName}", $sanitizedValue);
             } else {
-                $stmt->bindValue(":{$params}", $this->$params, $type);
+                $stmt->bindValue(":{$columnName}", $this->$columnName, $type);
             }
         }
     }
 
-    public function create()
+    private function buildNameParametersSQL()
     {
-        $sql = "INSERT INTO " . static::$table_name . " SET " . self::create_named_params_sql();
-        $stmt = DatabaseConn::connect_db()->prepare($sql);
-        $this->prepare_val($stmt);
+        $namedParams = '';
+        foreach (static::$table_schema as $columnName => $type) {
+            $namedParams .= $columnName . ' = :' . $columnName . ', ';
+        }
+        return trim($namedParams, ', ');
+    }
+
+    private function create()
+    {
+        $sql = 'INSERT INTO ' . static::$table_name . ' SET ' . $this->buildNameParametersSQL();
+        $stmt =  DatabaseConn::connect_db()->prepare($sql);
+        $this->prepareValues($stmt);
         if ($stmt->execute()) {
-            $this->{static::$primary_key} = DatabaseConn::connect_db()->lastInsertId();
+            $this->{static::$primary_key} =  DatabaseConn::connect_db()->lastInsertId();
             return true;
         }
         return false;
     }
 
-    public function update()
+    private function update()
     {
-        $sql = "UPDATE " . static::$table_name . " SET " . self::create_named_params_sql() . " WHERE " . static::$primary_key . " = " . $this->{static::$primary_key};
-        $stmt = DatabaseConn::connect_db()->prepare($sql);
-        $this->prepare_val($stmt);
+        $sql = 'UPDATE ' . static::$table_name . ' SET ' . $this->buildNameParametersSQL() . ' WHERE ' . static::$primary_key . ' = ' . $this->{static::$primary_key};
+        $stmt =  DatabaseConn::connect_db()->prepare($sql);
+        $this->prepareValues($stmt);
         return $stmt->execute();
     }
 
-    public function save($primaryKeyCheck = true)
+    public function save()
     {
-        if (false === $primaryKeyCheck) {
-            return $this->create();
-        }
         return $this->{static::$primary_key} === null ? $this->create() : $this->update();
     }
 
     public function delete()
     {
-
-
-        $sql = "DELETE FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . $this->{static::$primary_key};
-        $stmt = DatabaseConn::connect_db()->prepare($sql);
-        return  $stmt->execute();
+        $sql = 'DELETE FROM ' . static::$table_name . '  WHERE ' . static::$primary_key . ' = ' . $this->{static::$primary_key};
+        $stmt =  DatabaseConn::connect_db()->prepare($sql);
+        return $stmt->execute();
     }
-
 
     public static function get_all()
     {
-        $sql = "SELECT * FROM " . static::$table_name;
-        $stmt = DatabaseConn::connect_db()->prepare($sql);
+        $sql = 'SELECT * FROM ' . static::$table_name;
+        $stmt =  DatabaseConn::connect_db()->prepare($sql);
         $stmt->execute();
-
-        if (method_exists(get_called_class(), "__construct")) {
-            $result =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+        if (method_exists(get_called_class(), '__construct')) {
+            $results = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
         } else {
-            $result =  $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+            $results = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
         }
-        return is_array($result) && !empty($result) ? $result : false;
+        if ((is_array($results) && !empty($results))) {
+            return new \ArrayIterator($results);
+        };
+        return false;
     }
 
     public static function get_by_key($pk)
     {
-        $sql = "SELECT * FROM " . static::$table_name . " WHERE " . static::$primary_key . " = " . $pk;
-        $stmt = DatabaseConn::connect_db()->prepare($sql);
-
-        if ($stmt->execute()) {
-            if (method_exists(get_called_class(), "__construct")) {
-                $obj =  $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+        $sql = 'SELECT * FROM ' . static::$table_name . '  WHERE ' . static::$primary_key . ' = "' . $pk . '"';
+        $stmt =  DatabaseConn::connect_db()->prepare($sql);
+        if ($stmt->execute() === true) {
+            if (method_exists(get_called_class(), '__construct')) {
+                $obj = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
             } else {
-                $obj =  $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+                $obj = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
             }
             return !empty($obj) ? array_shift($obj) : false;
         }
-
         return false;
     }
 
@@ -115,15 +112,16 @@ class AbstractModel
         $whereClauseValues = array_values($columns);
         $whereClause = [];
         for ($i = 0, $ii = count($whereClauseColumns); $i < $ii; $i++) {
-            $whereClause[] = $whereClauseColumns[$i] . ' = "' . $whereClauseValues[$i] . '"';
+            $whereClause[] = ":" . $whereClauseColumns[$i] . ' = ' . $whereClauseValues[$i] . '';
         }
         $whereClause = implode(' AND ', $whereClause);
-        $sql = 'SELECT * FROM ' . static::$table_name . '  WHERE ' . $whereClause;
+        $sql = 'SELECT * FROM ' . static::$table_name . ' WHERE ' . $whereClause;
         return static::get($sql, $options);
     }
 
-    public static function get($sql, $options = array())
+    public static function get($sql, $options = [])
     {
+
         $stmt = DatabaseConn::connect_db()->prepare($sql);
         if (!empty($options)) {
             foreach ($options as $columnName => $type) {
@@ -137,19 +135,26 @@ class AbstractModel
                     }
                     $stmt->bindValue(":{$columnName}", $type[1]);
                 } else {
-                    $stmt->bindValue(":{$columnName}", $type[1], $type[0]);
+                    $stmt->bindValue(":{$columnName}", $type[1], self::TYPE_STR);
                 }
             }
         }
+        var_dump($stmt);
         $stmt->execute();
         if (method_exists(get_called_class(), '__construct')) {
-            $results = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$tableSchema));
-        } else {
             $results = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        } else {
+            $results = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
         }
         if ((is_array($results) && !empty($results))) {
             return new \ArrayIterator($results);
         };
         return false;
+    }
+
+    public static function getOne($sql, $options = array())
+    {
+        $result = static::get($sql, $options);
+        return $result === false ? false : $result->current();
     }
 }

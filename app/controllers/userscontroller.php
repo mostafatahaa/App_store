@@ -61,10 +61,20 @@ class UsersController extends AbstractController
             if ($user->save()) {
                 $this->messenger->add($this->language->get("message_create_success"));
             } else {
+                //NOTE::why this codes doesn't work ?
                 $this->messenger->add($this->language->get("message_create_falied"), Messenger::APP_MESSAGE_ERROR);
             }
             $this->redirect("/users");
         }
         $this->_view();
+    }
+    //TODO::make sure this is a AJAX Request
+    // NOTE:: search for the different types of header
+    public function checkUserExistsAjaxAction()
+    {
+        if (isset($_GET["userName"])) {
+            // header("Content-type: text/plain");
+            var_dump(UserModel::userExists($_GET["userName"]));
+        }
     }
 }
