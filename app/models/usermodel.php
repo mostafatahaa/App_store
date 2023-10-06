@@ -23,7 +23,7 @@ class UserModel extends AbstractModel
         "userName"          => self::TYPE_STR,
         "email"             => self::TYPE_STR,
         "phoneNumber"       => self::TYPE_STR,
-        "subscriptionDate"  => self::TYPE_DATE,
+        "subscriptionDate"  => self::TYPE_STR,
         "lastLogin"         => self::TYPE_STR,
         "groupId"           => self::TYPE_INT,
         "status"            => self::TYPE_INT,
@@ -47,6 +47,7 @@ class UserModel extends AbstractModel
 
     public static function userExists($userName)
     {
-        return self::get('SELECT * FROM ' . self::$table_name . ' WHERE userName = "' . $userName . '"');
+        $foundUser = self::get('SELECT * FROM ' . self::$table_name . ' WHERE userName = "' . $userName . '"');
+        return $foundUser ? true : false;
     }
 }

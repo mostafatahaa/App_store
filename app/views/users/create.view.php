@@ -6,7 +6,7 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_userName ?></label>
-        <input type="text" class="form-control" name="userName" value="<?= $this->showValue("userName") ?>" aria-describedby="emailHelp" maxlength="30">
+        <input id="ddd" type="text" class="form-control" name="userName" value="<?= $this->showValue("userName") ?>" aria-describedby="emailHelp" maxlength="30">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_password ?></label>

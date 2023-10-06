@@ -87,8 +87,14 @@ class Template
                     $output .= '<link rel="stylesheet"' . $path . '/>';
                 }
             }
+            // Generate "JS" links 
+            //     $js = $resources["js"];
+            //     if (!empty($js)) {
+            //         foreach ($js as $js_key => $path) {
+            //             $output .= '<script src="' . $path . '"></script>';
+            //         }
+            //     }
         }
-
 
         echo $output;
     }
@@ -96,6 +102,7 @@ class Template
 
     public function render_app()
     {
+
         $this->render_template_header_start();
         $this->render_header_resources();
         $this->render_template_header_end();
