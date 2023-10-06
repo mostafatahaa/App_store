@@ -15,6 +15,11 @@ trait TemplateHelper
     {
         return isset($_POST[$fieldName]) ? $_POST[$fieldName] : (is_null($object) ? "" : $object->$fieldName);
     }
+    // if fieldName exists and = its current vlaue or object (current user information in object $user) not null and fieldName = its value make select in this field
+    public function selectedIf($fieldName, $value, $object = null)
+    {
+        return ((isset($_POST[$fieldName]) && $_POST[$fieldName] == $value) ||  (!is_null($object) && $object->$fieldName == $value)) ? "selected=selected" : "";
+    }
 
     public function labelFloat($fieldName)
     {
