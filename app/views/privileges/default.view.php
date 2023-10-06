@@ -19,6 +19,7 @@
         ?>
                 <tr>
                     <td><?= $privilege->privilegeTitle ?></td>
+
                     <td>
                         <div class="edit-delete">
                             <a class="icon" href="/privileges/edit/<?= $privilege->privilegeId ?>"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #0043b8;"></i></a>

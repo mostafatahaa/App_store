@@ -1,26 +1,22 @@
-<!-- <div class="main_container">
-    <form method="post" style="width: 50%; margin:auto; padding-top:100px;">
+<title><?= $title ?></title>
+<legend><?= $text_legend ?></legend>
+<h1 class="header-text"><?= $title ?></h1>
 
-        <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="text" class="form-control" name="name" value="<?= $employee->name ?>" aria-describedby="emailHelp" placeholder="Enter your name">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="email" value="<?= $employee->email ?>" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">age</label>
-            <input type="number" class="form-control" name="age" value="<?= $employee->age ?>" placeholder="Your age">
-        </div>
-        <div class="form-group">
-            <label>Salary</label>
-            <input type="number" name="salary" class="form-control" value="<?= $employee->salary ?>" step="0.1" laceholder=" put your salary">
-        </div>
-        <div class="form-group">
-            <label>Address</label>
-            <input type="text" class="form-control" name="address" value="<?= $employee->address ?>" placeholder="Your Address">
-        </div>
-        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div> -->
+<form method="post" style="width: 50%; margin:auto; padding-top:100px;">
+
+
+    <div class="form-group">
+        <label for="exampleInputEmail1"><?= $text_lable_phoneNumber ?></label>
+        <input type="text" class="form-control" name="phoneNumber" value="<?= $this->showValue("phoneNumber", $user) ?>" aria-describedby="emailHelp">
+    </div>
+    <select class="form-select" name="groupId" aria-label="Default select example">
+        <option selected><?= $text_user_groupId ?></option>
+        <?php if ($groups) :;
+            foreach ($groups as $group) : ?>
+                <option value="<?= $group->groupId ?>" <?= $this->selectedIf('groupId', $group->groupId, $user) ?>><?= $group->groupName ?></option>
+        <?php endforeach;
+        endif ?>
+    </select>
+    <button style="display: block; margin-top: 17px;margin-left: auto;" type="submit" name="submit" class="btn btn-primary"><?= $text_lable_save ?></button>
+</form>
+</div>
