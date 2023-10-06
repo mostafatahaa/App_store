@@ -9,17 +9,20 @@ class FrontController
     private $_controller    = "index";
     private $_action        = "default";
     private $_params        = [];
+
     private $_registry;
     private $_template;
+    private $_authentication;
 
     const NOT_FOUND_ACTION = "notFoundAction";
     const NOT_FOUND_CONTROLLER = "PHPMVC\Controllers\\NotFoundController";
 
     // using dependency injection
-    public function __construct(Template $template, Registry $registry)
+    public function __construct(Template $template, Registry $registry, Authentication $auth)
     {
-        $this->_template = $template;
-        $this->_registry = $registry;
+        $this->_template        = $template;
+        $this->_registry        = $registry;
+        $this->_authentication  = $auth;
         $this->_url();
     }
 
@@ -42,9 +45,16 @@ class FrontController
 
     public function dispatch()
     {
-
         $controller_class_name = "PHPMVC\Controllers\\" . ucfirst($this->_controller) . "Controller";
         $action_name = $this->_action . "Action";
+
+        // check if the user allowed to access the application
+        if (!$this->_authentication->isAuthorized()) {
+            $controller_class_name = "PHPMVC\Controllers\AuthController";
+            $action_name = "loginAction";
+            $this->_controller = "auth";
+            $this->_action = "login";
+        }
 
         if (!class_exists($controller_class_name) || !method_exists($controller_class_name, $action_name)) {
             $controller_class_name = self::NOT_FOUND_CONTROLLER;

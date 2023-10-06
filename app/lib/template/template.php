@@ -30,6 +30,11 @@ class Template
         $this->_action_view = $action_view_path;
     }
 
+    public function swapTemplate($template)
+    {
+        $this->_template_parts["template"] = $template;
+    }
+
     public function set_app_data($data)
     {
         $this->_data = $data;
