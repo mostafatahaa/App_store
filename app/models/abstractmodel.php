@@ -2,10 +2,9 @@
 
 namespace PHPMVC\Models;
 
-use ArrayIterator;
 use PHPMVC\LIB\Database\DatabaseConn;
 
-class AbstractModel extends ArrayIterator
+class AbstractModel
 {
     const TYPE_BOOL = \PDO::PARAM_BOOL;
     const TYPE_STR = \PDO::PARAM_STR;
@@ -139,12 +138,11 @@ class AbstractModel extends ArrayIterator
                 }
             }
         }
-        var_dump($stmt);
         $stmt->execute();
         if (method_exists(get_called_class(), '__construct')) {
-            $results = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
-        } else {
             $results = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
+        } else {
+            $results = $stmt->fetchAll(\PDO::FETCH_CLASS, get_called_class());
         }
         if ((is_array($results) && !empty($results))) {
             return new \ArrayIterator($results);
