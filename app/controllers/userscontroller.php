@@ -72,9 +72,13 @@ class UsersController extends AbstractController
     // NOTE:: search for the different types of header
     public function checkUserExistsAjaxAction()
     {
-        if (isset($_GET["userName"])) {
-            // header("Content-type: text/plain");
-            var_dump(UserModel::userExists($_GET["userName"]));
+        if (isset($_POST["userName"])) {
+            header("Content-type: text/plain");
+            if (UserModel::userExists($this->filter_str($_POST["userName"]))) {
+                echo 1;
+            } else {
+                echo 2;
+            }
         }
     }
 }
