@@ -20,3 +20,4 @@ $_["text_store_products_type"] = "Products Types";
 $_["text_users_list"] = "Users List";
 $_["text_users_group"] = "Users group";
 $_["text_users_privileges"] = "Privileges";
+$_["text_access_denied"] = "Sorry, you do not have permission to access this page";
