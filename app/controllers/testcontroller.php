@@ -3,6 +3,7 @@
 namespace PHPMVC\Controllers;
 
 use PHPMVC\LIB\Validate;
+use PHPMVC\Models\UsersGroupsPrivilegesModel;
 
 class TestController extends AbstractController
 {
@@ -10,6 +11,9 @@ class TestController extends AbstractController
 
     public function defaultAction()
     {
-        echo password_hash("encryptedkey", CRYPT_BLOWFISH);
+        $privileges = UsersGroupsPrivilegesModel::getPrivilegesForGroup($this->session->u->groupId);
+        echo '<pre>';
+        var_dump($privileges);
+        echo '</pre>';
     }
 }
