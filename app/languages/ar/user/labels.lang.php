@@ -1,6 +1,8 @@
 <?php
 $_["text_legend"] = "بيانات المستخدم";
 $_["text_lable_userName"] = "اسم المستخدم";
+$_["text_lable_firstName"] = "الاسم الأول";
+$_["text_lable_lastName"] = "الاسم الأخير";
 $_["text_lable_password"] = "كلمة المرور";
 $_["text_lable_confirmPassword"] = "تأكيد كلمة المرور";
 $_["text_lable_email"] = "البريد الالكتروني";

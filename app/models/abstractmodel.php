@@ -62,8 +62,11 @@ class AbstractModel
         return $stmt->execute();
     }
 
-    public function save()
+    public function save($checkPrimaryKey = true)
     {
+        if ($checkPrimaryKey === false) {
+            return $this->save();
+        }
         return $this->{static::$primary_key} === null ? $this->create() : $this->update();
     }
 

@@ -6,6 +6,7 @@ use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\Messenger;
 use PHPMVC\Models\UserModel;
+use PHPMVC\Models\UserProfileModel;
 use PHPMVC\Models\UsersGroupsModel;
 //TODO:: Create method to check if the email already exists or not.
 class UsersController extends AbstractController
@@ -16,7 +17,9 @@ class UsersController extends AbstractController
 
     private $_createActionRoles =
     [
-        "userName"              => 'requireVal|between(3,12)',
+        "firstName"             => 'requireVal|alpha|between(3,10)',
+        "lastName"              => 'requireVal|alpha|between(3,10)',
+        "userName"              => 'requireVal|alphaNum|between(3,12)',
         "password"              => "requireVal|minimum(6)|equalField(confirmPassword)",
         "confirmPassword"       => "requireVal|minimum(6)",
         "email"                 => "requireVal|validateEmail",
@@ -70,6 +73,11 @@ class UsersController extends AbstractController
                 $this->redirect("/users/create");
             }
             if ($user->save()) {
+                $userProfile = new UserProfileModel();
+                $userProfile->userId = $user->userId;
+                $userProfile->firstName = $this->filter_str($_POST["firstName"]);
+                $userProfile->LastName = $this->filter_str($_POST["lasttName"]);
+                $userProfile->save(false);
                 $this->messenger->add($this->language->get("message_create_success"));
             } else {
                 //NOTE::why this codes doesn't work ?

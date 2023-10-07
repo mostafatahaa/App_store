@@ -5,6 +5,14 @@
 <form method="post" style="width: 50%; margin:auto; padding-top:100px;">
 
     <div class="form-group">
+        <label for="exampleInputEmail1"><?= $text_lable_firstName ?></label>
+        <input id="ddd" type="text" class="form-control" name="firstName" value="<?= $this->showValue("firstName") ?>" aria-describedby="emailHelp" maxlength="10">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1"><?= $text_lable_lastName ?></label>
+        <input id="ddd" type="text" class="form-control" name="lastName" value="<?= $this->showValue("lastName") ?>" aria-describedby="emailHelp" maxlength="10">
+    </div>
+    <div class="form-group">
         <label for="exampleInputEmail1"><?= $text_lable_userName ?></label>
         <input id="ddd" type="text" class="form-control" name="userName" value="<?= $this->showValue("userName") ?>" aria-describedby="emailHelp" maxlength="30">
     </div>

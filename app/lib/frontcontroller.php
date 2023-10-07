@@ -6,6 +6,8 @@ use PHPMVC\LIB\TEMPLATE\Template;
 
 class FrontController
 {
+    use Helper;
+
     private $_controller    = "index";
     private $_action        = "default";
     private $_params        = [];
@@ -48,12 +50,19 @@ class FrontController
         $controller_class_name = "PHPMVC\Controllers\\" . ucfirst($this->_controller) . "Controller";
         $action_name = $this->_action . "Action";
 
-        // check if the user allowed to access the application
+        // check if the user allowed to access the application and direct user to application if true
+        // this condition will redirect use to the app
         if (!$this->_authentication->isAuthorized()) {
-            $controller_class_name = "PHPMVC\Controllers\AuthController";
-            $action_name = "loginAction";
-            $this->_controller = "auth";
-            $this->_action = "login";
+            if ($this->_controller !== "auth" && $this->_action !== "login") {
+                $this->redirect("/auth/login");
+            }
+        } else {
+            /* if the user write on the url (auth/login) this condition will directs him to home page
+             or if the use click on link that is directs to (auth/login) HTTP_REFERER will redirect him 
+            to the previous page*/
+            if ($this->_controller == "auth" && $this->_action == "login") {
+                isset($_SERVER["HTTP_REFERER"]) ? $this->redirect($_SERVER["HTTP_REFERER"]) : $this->redirect("/");
+            }
         }
 
         if (!class_exists($controller_class_name) || !method_exists($controller_class_name, $action_name)) {

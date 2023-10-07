@@ -3,9 +3,6 @@
 <a style="float: right;padding: 10px;" href="/privileges/create"><button type="button" class="btn btn-primary"><?= $text_add_privileges ?></button></a>
 
 <table class="table table-striped table-white">
-
-
-
     <thead>
         <tr class="table-head">
             <th style="width: 85%;" scope="col"><?= $text_table_privileges ?></th>
