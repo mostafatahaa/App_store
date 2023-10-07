@@ -114,7 +114,7 @@ class AbstractModel
         $whereClauseValues = array_values($columns);
         $whereClause = [];
         for ($i = 0, $ii = count($whereClauseColumns); $i < $ii; $i++) {
-            $whereClause[] = ":" . $whereClauseColumns[$i] . ' = ' . $whereClauseValues[$i] . '';
+            $whereClause[] = $whereClauseColumns[$i] . ' = ' . $whereClauseValues[$i] . '';
         }
         $whereClause = implode(' AND ', $whereClause);
         $sql = 'SELECT * FROM ' . static::$table_name . ' WHERE ' . $whereClause;
@@ -142,6 +142,7 @@ class AbstractModel
             }
         }
         $stmt->execute();
+
         if (method_exists(get_called_class(), '__construct')) {
             $results = $stmt->fetchAll(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_called_class(), array_keys(static::$table_schema));
         } else {

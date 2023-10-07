@@ -65,6 +65,11 @@ class FrontController
             }
         }
 
+        // check if the user have access to specific url
+        if (!$this->_authentication->hasAccess($this->_controller, $this->_action)) {
+            $this->redirect("/accessdenied");
+        }
+
         if (!class_exists($controller_class_name) || !method_exists($controller_class_name, $action_name)) {
             $controller_class_name = self::NOT_FOUND_CONTROLLER;
             $this->_action = $action_name = self::NOT_FOUND_ACTION;
