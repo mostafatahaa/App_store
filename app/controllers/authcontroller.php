@@ -24,16 +24,12 @@ class AuthController extends AbstractController
                 $this->messenger->add($this->language->get("text_user_not_found"), Messenger::APP_MESSAGE_ERROR);
             }
         }
-
-        echo '<pre>';
-        print_r($this->session->kill());
-        echo "</pre>";
         $this->_view();
     }
 
     public function logoutAction()
     {
-        $this->sessions->kill();
+        $this->session->kill();
         $this->redirect("/auth/login");
     }
 }

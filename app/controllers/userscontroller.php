@@ -40,7 +40,7 @@ class UsersController extends AbstractController
         $this->language->load("template.common");
         $this->language->load("user.default");
 
-        $this->_data["users"] = UserModel::get_all();
+        $this->_data["users"] = UserModel::getUser($this->session->u);
 
         $this->_view();
     }
@@ -72,15 +72,17 @@ class UsersController extends AbstractController
                 $this->messenger->add($this->language->get("message_user_exists"), Messenger::APP_MESSAGE_ERROR);
                 $this->redirect("/users/create");
             }
+
             if ($user->save()) {
                 $userProfile = new UserProfileModel();
                 $userProfile->userId = $user->userId;
                 $userProfile->firstName = $this->filter_str($_POST["firstName"]);
-                $userProfile->LastName = $this->filter_str($_POST["lasttName"]);
+                $userProfile->LastName = $this->filter_str($_POST["lastName"]);
                 $userProfile->save(false);
                 $this->messenger->add($this->language->get("message_create_success"));
             } else {
                 //NOTE::why this codes doesn't work ?
+                // TODO:: check if the value exists in database and if yes retuurn this message
                 $this->messenger->add($this->language->get("message_create_falied"), Messenger::APP_MESSAGE_ERROR);
             }
             $this->redirect("/users");
@@ -91,8 +93,12 @@ class UsersController extends AbstractController
     {
         $id = $this->filter_int($this->_params[0]);
         $user = UserModel::get_by_key($id);
-        // if someone put id that is not exists this condiction will redirect user to users page
-        if ($user === false) {
+
+        /* if someone put id that is not exists this condiction will redirect user to users page
+        and if someoen put its id in url it will redirect him to users page because we don't need hime 
+        to change his gorup
+        */
+        if ($user === false || $this->session->u->userId === $id) {
             $this->redirect("/users");
         }
 
@@ -124,7 +130,8 @@ class UsersController extends AbstractController
     {
         $id = $this->filter_int($this->_params[0]);
         $user = UserModel::get_by_key($id);
-        if ($user === false) {
+        // so current user don't delete him self by typing his id in url
+        if ($user === false || $this->session->u->userId === $id) {
             $this->redirect("/users");
         }
         $this->language->load("user.messages");

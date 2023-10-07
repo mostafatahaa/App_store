@@ -272,3 +272,8 @@ body {
 }
 
 /* login style end */
+
+.user-text {
+    text-align: center;
+    color: white;
+}

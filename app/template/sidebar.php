@@ -1,4 +1,8 @@
 <div class="sidebar">
+    <div class="user-text">
+        <h3><?= $this->session->u->profile->firstName ?> <?= $this->session->u->profile->lastName ?></h3>
+        <h4><?= $this->session->u->groupName ?></h4>
+    </div>
     <ul>
         <li><a href="/statistics">
                 <span class="icon"><i class="fa-solid fa-chart-pie"></i></span>
@@ -80,7 +84,7 @@
                 <span class="title"><?= $text_notifications ?></span>
             </a></li>
 
-        <li><a href="auth/login">
+        <li><a href="/auth/logout">
                 <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                 <span class="title"><?= $text_logout ?></span>
             </a></li>

@@ -36,10 +36,11 @@ class UserModel extends AbstractModel
         $this->password = crypt($password, APP_SALT);
     }
 
-    public static function get_all()
+    public static function getUser(UserModel $user)
     {
         return self::get(
-            'SELECT au.*, aug.groupName groupName FROM ' . self::$table_name . ' au INNER JOIN app_users_groups aug ON aug.groupId = au.groupId'
+            'SELECT au.*, aug.groupName groupName FROM ' . self::$table_name . ' au INNER JOIN app_users_groups aug ON aug.groupId = au.groupId
+             WHERE au.userId !=' . $user->userId
         );
     }
 
@@ -52,7 +53,8 @@ class UserModel extends AbstractModel
     public static function authenticate($userName, $password, $session)
     {
         $password = crypt($password, APP_SALT);
-        $sql = "SELECT * FROM " . static::$table_name . " WHERE userName = '" . $userName . "' AND password = '" . $password . "'";
+        // using sub query
+        $sql = "SELECT *, (SELECT groupName FROM app_users_groups WHERE app_users_groups.groupId =" . static::$table_name . ".groupId) groupName FROM " . static::$table_name . " WHERE userName = '" . $userName . "' AND password = '" . $password . "'";
         $foundUser = self::getOne($sql);
         if ($foundUser) {
             if ($foundUser->status == 2) {
@@ -60,6 +62,7 @@ class UserModel extends AbstractModel
             }
             $foundUser->lastLogin = date('Y-m-d H:i:s');
             $foundUser->save();
+            $foundUser->profile = UserProfileModel::get_by_key($foundUser->userId);
             $session->u = $foundUser;
             return 1;
         }

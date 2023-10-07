@@ -2,6 +2,7 @@
 
 namespace PHPMVC\Models;
 
+use PDOStatement;
 use PHPMVC\LIB\Database\DatabaseConn;
 
 class AbstractModel
@@ -19,7 +20,6 @@ class AbstractModel
     const VALIDATE_DATE_NUMERIC = '^\d{6,8}$';
     const DEFAULT_MYSQL_DATE = '1970-01-01';
 
-    private static $db;
 
     private function prepareValues(\PDOStatement &$stmt)
     {
@@ -48,7 +48,7 @@ class AbstractModel
         $stmt =  DatabaseConn::connect_db()->prepare($sql);
         $this->prepareValues($stmt);
         if ($stmt->execute()) {
-            $this->{static::$primary_key} =  DatabaseConn::connect_db()->lastInsertId();
+            $this->{static::$primary_key} = DatabaseConn::connect_db()->lastInsertId();
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ class AbstractModel
     public function save($checkPrimaryKey = true)
     {
         if ($checkPrimaryKey === false) {
-            return $this->save();
+            return $this->create();
         }
         return $this->{static::$primary_key} === null ? $this->create() : $this->update();
     }

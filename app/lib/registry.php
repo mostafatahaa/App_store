@@ -32,6 +32,6 @@ class Registry
     public function __get($key)
     {
         // we use return here to return $key value
-        return $this->$key;
+        return $key;
     }
 }

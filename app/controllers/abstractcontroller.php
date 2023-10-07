@@ -26,7 +26,7 @@ class AbstractController
     }
     public function notFoundAction()
     {
-        echo $this->_view();
+        $this->_view();
     }
 
     public function set_controller($controller_name)
