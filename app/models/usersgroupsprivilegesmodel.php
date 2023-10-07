@@ -14,9 +14,8 @@ class UsersGroupsPrivilegesModel extends AbstractModel
     protected static $primary_key = "id";
 
     protected static $table_schema = [
-        "id"                  => self::TYPE_INT,
         "privilegeId"         => self::TYPE_INT,
-        "groupId"             => self::TYPE_STR,
+        "groupId"             => self::TYPE_INT,
     ];
 
     public static function getGroupPrivileges(UsersGroupsModel $group)
@@ -24,11 +23,26 @@ class UsersGroupsPrivilegesModel extends AbstractModel
         $groupPrivileges = self::get_by(["groupId" => $group->groupId]);
 
         $extract_privileges_id = [];
-        if ($groupPrivileges) {
+        if (false !== $groupPrivileges) {
             foreach ($groupPrivileges as $privilege) {
                 $extract_privileges_id[] = $privilege->privilegeId;
             }
         }
         return $extract_privileges_id;
+    }
+
+    public static function getPrivilegesForGroup($groupId)
+    {
+        $sql = "SELECT augp.*, aup.privilege FROM " . self::$table_name . " augp";
+        $sql .= " INNER JOIN app_users_privileges aup ON aup.privilegeId = augp.privilegeId";
+        $sql .= " WHERE augp.groupId = " . $groupId;
+        $privileges = self::get($sql);
+        $extractedUrls = [];
+        if (false !== $privileges) {
+            foreach ($privileges as $privilege) {
+                $extractedUrls[] = $privilege->privilege;
+            }
+        }
+        return $extractedUrls;
     }
 }
