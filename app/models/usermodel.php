@@ -33,9 +33,7 @@ class UserModel extends AbstractModel
 
     public function cryptPassword($password)
     {
-
-        $salt = '$2a$06$Dnp9Kyu1sxjAvpXuh7XG4i$';
-        $this->password = crypt($password, $salt);
+        $this->password = crypt($password, APP_SALT);
     }
 
     public static function get_all()
@@ -49,5 +47,22 @@ class UserModel extends AbstractModel
     {
         $foundUser = self::get('SELECT * FROM ' . self::$table_name . ' WHERE userName = "' . $userName . '"');
         return $foundUser ? true : false;
+    }
+
+    public static function authenticate($userName, $password, $session)
+    {
+        $password = crypt($password, APP_SALT);
+        $sql = "SELECT * FROM " . static::$table_name . " WHERE userName = '" . $userName . "' AND password = '" . $password . "'";
+        $foundUser = self::getOne($sql);
+        if ($foundUser) {
+            if ($foundUser->status == 2) {
+                return 2;
+            }
+            $foundUser->lastLogin = date('Y-m-d H:i:s');
+            $foundUser->save();
+            $session->u = $foundUser;
+            return 1;
+        }
+        return false;
     }
 }

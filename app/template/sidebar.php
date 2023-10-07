@@ -80,7 +80,7 @@
                 <span class="title"><?= $text_notifications ?></span>
             </a></li>
 
-        <li><a href="auth/logout">
+        <li><a href="auth/login">
                 <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                 <span class="title"><?= $text_logout ?></span>
             </a></li>
