@@ -16,6 +16,7 @@ defined("DATABASE_PASSWORD")        ? null : define("DATABASE_PASSWORD", "");
 defined("DATABASE_DB_NAME")         ? null : define("DATABASE_DB_NAME", "storedb");
 
 defined("APP_DEFAULT_LANGUAGE")     ? null : define("APP_DEFAULT_LANGUAGE", "ar");
+defined("CHECK_PRIVILEGE")          ? null : define("CHECK_PRIVILEGE", 1);
 
 define("SESSION_SAVE_PATH", APP_PATH . DS . ".." . DS . "public" . DS . "sessions");
 

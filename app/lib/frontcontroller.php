@@ -63,11 +63,12 @@ class FrontController
             if ($this->_controller == "auth" && $this->_action == "login") {
                 isset($_SERVER["HTTP_REFERER"]) ? $this->redirect($_SERVER["HTTP_REFERER"]) : $this->redirect("/");
             }
-        }
-
-        // check if the user have access to specific url
-        if (!$this->_authentication->hasAccess($this->_controller, $this->_action)) {
-            $this->redirect("/accessdenied");
+            if ((bool) CHECK_PRIVILEGE === true) {
+                // check if the user have access to specific url
+                if (!$this->_authentication->hasAccess($this->_controller, $this->_action)) {
+                    $this->redirect("/accessdenied");
+                }
+            }
         }
 
         if (!class_exists($controller_class_name) || !method_exists($controller_class_name, $action_name)) {

@@ -44,12 +44,12 @@
                 <span class="title"><?= $text_store_products_type ?></span>
             </a></li>
 
-        <li><a href="clients">
+        <li><a href="/clients">
                 <span class="icon"><i class="fa-solid fa-users-rectangle"></i></span>
                 <span class="title"><?= $text_clients ?></span>
             </a></li>
 
-        <li class="<?= $this->matchUrl('/supliers') === true ? ' selected' : '' ?>"><a href="/supliers">
+        <li class="<?= $this->matchUrl('/suppliers') === true ? ' selected' : '' ?>"><a href="/suppliers">
                 <span class="icon"><i class="fa-solid fa-user-group"></i></span>
                 <span class="title"><?= $text_suppliers ?></span>
             </a></li>

@@ -12,7 +12,6 @@ $_["text_clients"] = "العملاء";
 $_["text_suppliers"] = "الموردين";
 $_["text_reports"] = "التقارير";
 $_["text_notifications"] = "الاشعارات";
-$_["text_add_user"] = "اضافة مستخدم جديد";
 $_["text_expenses_types"] = "أنواع المصروفات";
 $_["text_expenses_daily"] = "المصروفات اليوميه";
 $_["text_store_products"] = "المنتجات";

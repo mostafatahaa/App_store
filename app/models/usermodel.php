@@ -16,6 +16,12 @@ class UserModel extends AbstractModel
     public $groupId;
     public $status;
 
+    /**
+     * @var UserProfileModel
+     */
+    public $profile;
+    public $privileges;
+
     protected static $table_name = "app_users";
 
     protected static $table_schema = [
@@ -54,7 +60,7 @@ class UserModel extends AbstractModel
     {
         $password = crypt($password, APP_SALT);
         // using sub query
-        $sql = "SELECT *, (SELECT groupName FROM app_users_groups WHERE app_users_groups.groupId =" . static::$table_name . ".groupId) groupName FROM " . static::$table_name . " WHERE userName = '" . $userName . "' AND password = '" . $password . "'";
+        $sql = 'SELECT *, (SELECT groupName FROM app_users_groups WHERE app_users_groups.groupId = ' . self::$table_name . '.groupId) groupName FROM ' . self::$table_name . ' WHERE userName = "' . $userName . '" AND password = "' .  $password . '"';
         $foundUser = self::getOne($sql);
         if ($foundUser) {
             if ($foundUser->status == 2) {

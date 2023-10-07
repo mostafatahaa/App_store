@@ -33,9 +33,9 @@ class UsersGroupsPrivilegesModel extends AbstractModel
 
     public static function getPrivilegesForGroup($groupId)
     {
-        $sql = "SELECT augp.*, aup.privilege FROM " . self::$table_name . " augp";
-        $sql .= " INNER JOIN app_users_privileges aup ON aup.privilegeId = augp.privilegeId";
-        $sql .= " WHERE augp.groupId = " . $groupId;
+        $sql = 'SELECT augp.*, aup.privilege FROM ' . self::$table_name . ' augp';
+        $sql .= ' INNER JOIN app_users_privileges aup ON aup.privilegeId = augp.privilegeId';
+        $sql .= ' WHERE augp.groupId = ' . $groupId;
         $privileges = self::get($sql);
         $extractedUrls = [];
         if (false !== $privileges) {

@@ -9,3 +9,4 @@ $_["text_table_subscription_date"] = "تاريخ الانضمام";
 $_["text_table_last_login"] = "اخر وقت دخول";
 $_["text_table_control"] = "التحكم";
 $_["text_table_delete_confirm"] = "هل تود حذف المستخدم";
+$_["text_add_user"] = "اضافة مستخدم جديد";

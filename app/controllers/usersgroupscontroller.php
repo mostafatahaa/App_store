@@ -21,12 +21,12 @@ class UsersGroupsController extends AbstractController
 
 
         $this->_data["groups"] = UsersGroupsModel::get_all();
-
         $this->_view();
     }
 
     public function createAction()
     {
+
         $this->language->load("template.common");
         $this->language->load("usersgroups.create");
         $this->language->load("usersgroups.lables");
@@ -35,19 +35,19 @@ class UsersGroupsController extends AbstractController
         if (isset($_POST["submit"])) {
             $group = new UsersGroupsModel();
             $group->groupName = $this->filter_str($_POST["groupName"]);
-            var_dump($_POST);
             if ($group->save()) {
                 if ($_POST["privileges"] && is_array($_POST["privileges"])) {
                     foreach ($_POST["privileges"] as $privilegeId) {
-                        $groupPrivileges = new UsersGroupsPrivilegesModel;
-                        $groupPrivileges->groupId = $group->groupId;
-                        $groupPrivileges->privilegeId = $privilegeId;
-                        $groupPrivileges->save();
+                        $groupPrivilege = new UsersGroupsPrivilegesModel();
+                        $groupPrivilege->groupId = $group->groupId;
+                        $groupPrivilege->privilegeId = $privilegeId;
+                        $groupPrivilege->save();
                     }
                 }
                 $this->redirect("/usersgroups");
             }
         }
+
         $this->_view();
     }
 
@@ -85,7 +85,7 @@ class UsersGroupsController extends AbstractController
 
                     // Add new privileges
                     foreach ($privilegeIdsToBeAded as $privilegeId) {
-                        $groupPrivileges = new UsersGroupsPrivilegesModel;
+                        $groupPrivileges = new UsersGroupsPrivilegesModel();
                         $groupPrivileges->groupId = $group->groupId;
                         $groupPrivileges->privilegeId = $privilegeId;
                         $groupPrivileges->save();
