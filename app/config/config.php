@@ -22,3 +22,9 @@ define("SESSION_SAVE_PATH", APP_PATH . DS . ".." . DS . "public" . DS . "session
 
 // crypt salt
 defined("APP_SALT")         ? null : define("APP_SALT", '$2a$06$Dnp9Kyu1sxjAvpXuh7XG4i$');
+
+// path for uploaded files
+defined("UPLOADE_STORAGE")                  ? null     :  define("UPLOADE_STORAGE", APP_PATH . DS . ".." . DS . "uploads");
+defined("IMAGES_UPLOADE_STORAGE")           ? null     :  define("IMAGES_UPLOADE_STORAGE", UPLOADE_STORAGE . DS . "images");
+defined("DOCUMENTS_UPLOADE_STORAGE")        ? null     :  define("DOCUMENTS_UPLOADE_STORAGE", UPLOADE_STORAGE . DS . "docs");
+defined("MAX_FILE_SIZE_ALLOWED")            ? null     :  define("MAX_FILE_SIZE_ALLOWED", ini_get("upload_max_filesize"));
