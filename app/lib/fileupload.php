@@ -27,7 +27,11 @@ class FileUpload
     {
         preg_match_all("/([a-z]{1,4})$/i", $name, $match);
         $this->fileExtension = $match[0][0];
-        return substr(strtolower(base64_encode($this->name . APP_SALT)), 0, 26);
+        $fileName = substr(strtolower(base64_encode($this->name . APP_SALT)), 0, 30);
+        $modifiedName = preg_replace("/(\w{6})/i", "$1_", $fileName);
+        $modifiedName = rtrim($modifiedName, "_");
+        echo $modifiedName;
+        exit;
     }
 
     private function isAllowedType()
