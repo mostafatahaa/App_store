@@ -23,15 +23,16 @@ class FileUpload
         $this->tmpPath      = $file["tmp_name"];
     }
 
+
+
     public function name($name)
     {
         preg_match_all("/([a-z]{1,4})$/i", $name, $match);
         $this->fileExtension = $match[0][0];
         $fileName = substr(strtolower(base64_encode($this->name . APP_SALT)), 0, 30);
-        $modifiedName = preg_replace("/(\w{6})/i", "$1_", $fileName);
-        $modifiedName = rtrim($modifiedName, "_");
-        echo $modifiedName;
-        exit;
+        $fileName = preg_replace("/(\w{6})/i", "$1_", $fileName);
+        $fileName = rtrim($fileName, "_");
+        return $fileName;
     }
 
     private function isAllowedType()
