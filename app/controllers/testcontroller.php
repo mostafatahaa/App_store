@@ -13,5 +13,6 @@ class TestController extends AbstractController
     public function defaultAction()
     {
         // $privileges = UsersGroupsPrivilegesModel::getPrivilegesForGroup($this->session->u);
+        phpinfo();
     }
 }

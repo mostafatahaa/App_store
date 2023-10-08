@@ -6,9 +6,6 @@ use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\Messenger;
 use PHPMVC\Models\SupplierModel;
-use PHPMVC\Models\UserModel;
-use PHPMVC\Models\UserProfileModel;
-use PHPMVC\Models\UsersGroupsModel;
 //TODO:: Create method to check if the email already exists or not.
 class SuppliersController extends AbstractController
 {

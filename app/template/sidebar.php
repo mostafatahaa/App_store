@@ -39,7 +39,7 @@
                 <span class="title"><?= $text_store_products ?></span>
             </a></li>
 
-        <li><a href="store">
+        <li><a href="/productcategories">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_store_products_type ?></span>
             </a></li>
