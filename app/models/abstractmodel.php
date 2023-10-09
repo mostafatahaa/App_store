@@ -2,7 +2,6 @@
 
 namespace PHPMVC\Models;
 
-use PDOStatement;
 use PHPMVC\LIB\Database\DatabaseConn;
 
 class AbstractModel
