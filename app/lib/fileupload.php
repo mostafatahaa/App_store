@@ -2,6 +2,8 @@
 
 namespace PHPMVC\LIB;
 
+use Exception;
+
 //NOTE: Read about php file upload
 class FileUpload
 {
@@ -16,18 +18,19 @@ class FileUpload
 
     public function __construct(array $file)
     {
-        $this->name         = $this->name($file["name"]);
+        $this->name         = $file["name"];
         $this->type         = $file["type"];
         $this->size         = $file["size"];
         $this->error        = $file["error"];
         $this->tmpPath      = $file["tmp_name"];
+        $this->name();
     }
 
 
 
-    public function name($name)
+    public function name()
     {
-        preg_match_all("/([a-z]{1,4})$/i", $name, $match);
+        preg_match_all("/([a-z]{1,4})$/i", $this->name, $match);
         $this->fileExtension = $match[0][0];
         $fileName = substr(strtolower(base64_encode($this->name . APP_SALT)), 0, 30);
         $fileName = preg_replace("/(\w{6})/i", "$1_", $fileName);
@@ -63,7 +66,6 @@ class FileUpload
 
     public function upload()
     {
-        // TODO: make property for all errors numbers and execute the error message to user so he can understand what happend
         if ($this->error !== 0) {
             trigger_error("Sorry your file didn't upload successfully", E_USER_WARNING);
         } elseif (!$this->isAllowedType()) {
@@ -71,10 +73,12 @@ class FileUpload
         } elseif (!$this->isAllowedSize()) {
             trigger_error("Sorry files size exceeds the maximum allowed size", E_USER_WARNING);
         } else {
-            if ($this->isImage()) {
-                move_uploaded_file($this->tmpPath, IMAGES_UPLOADE_STORAGE . DS . $this->getFileName());
+            $storageFolder = $this->isImage() ? IMAGES_UPLOADE_STORAGE : DOCUMENTS_UPLOADE_STORAGE;
+            chmod($storageFolder, 0777);
+            if (is_writable($storageFolder)) {
+                move_uploaded_file($this->tmpPath, $storageFolder . DS . $this->getFileName());
             } else {
-                move_uploaded_file($this->tmpPath, DOCUMENTS_UPLOADE_STORAGE . DS . $this->getFileName());
+                throw new \Exception('Sorry the destination folder is not writable');
             }
         }
         return $this;
