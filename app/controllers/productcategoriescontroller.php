@@ -2,6 +2,7 @@
 
 namespace PHPMVC\Controllers;
 
+use Exception;
 use PHPMVC\LIB\FileUpload;
 use PHPMVC\LIB\Helper;
 use PHPMVC\LIB\InputFilter;
@@ -41,21 +42,33 @@ class ProductCategoriesController extends AbstractController
         $this->language->load("validation.errors");
         $this->language->load("productcategories.messages");
 
+        $uploadError = false;
+        $this->_data["categories"] = ProductCategoriesModel::get_all();
 
         //TODO: explane a better solution to check aginst file type
         //TODO: explane a better solution to secure the upload folder
-        if (isset($_POST["submit"]) && $this->isValid($this->_createActionRoles, $_POST)) {
-            // Create new user
+        if (isset($_POST['submit']) && $this->isValid($this->_createActionRoles, $_POST)) {
             $category = new ProductCategoriesModel();
             $category->name = $this->filter_str($_POST['name']);
-            $category->image = isset($_FILES['image']) ? (new FileUpload($_FILES["image"]))->upload()->getFileName() : "";
-            if ($category->save()) {
-                $this->messenger->add($this->language->get("message_create_success"));
-                $this->redirect("/productcategories");
+            $category->image = $_FILES["image"]["name"];
+            if (!empty($_FILES['image']['name'])) {
+                $uploader = new FileUpload($_FILES['image']);
+                try {
+                    $uploader->upload();
+                    $category->image = $uploader->getFileName();
+                } catch (\Exception $e) {
+                    $this->messenger->add($e->getMessage(), Messenger::APP_MESSAGE_ERROR);
+                    $uploadError = true;
+                }
+            }
+            if ($uploadError === false && $category->save()) {
+                $this->messenger->add($this->language->get('message_create_success'));
+                $this->redirect('/productcategories');
             } else {
-                $this->messenger->add($this->language->get("message_create_falied"), Messenger::APP_MESSAGE_ERROR);
+                $this->messenger->add($this->language->get('message_create_failed'), Messenger::APP_MESSAGE_ERROR);
             }
         }
+
         $this->_view();
     }
 
@@ -68,7 +81,6 @@ class ProductCategoriesController extends AbstractController
             $this->redirect("/productcategories");
         }
 
-        $this->_data['category'] = $category;
 
         $this->language->load("template.common");
         $this->language->load("productcategories.edit");
@@ -77,13 +89,35 @@ class ProductCategoriesController extends AbstractController
         $this->language->load("validation.errors");
         $this->language->load("productcategories.messages");
 
-        if (isset($_POST["submit"]) && $this->isValid($this->_createActionRoles, $_POST)) {
-            $category->image = isset($_FILES['image']) ? (new FileUpload($_FILES["image"]))->upload()->getFileName() : "";
+        $this->_data['category'] = $category;
+        $uploderError = false;
+
+        if (isset($_POST["submit"])) {
             $category->name = $this->filter_str($_POST['name']);
-            if ($category->save()) {
+
+            if (!empty($_FILES["image"]["name"])) {
+                // remove the old image or if the folder is writable
+                if ($category->image !== "" && file_exists(IMAGES_UPLOADE_STORAGE . DS . $category->image && is_writable(IMAGES_UPLOADE_STORAGE))) {
+                    unlink(IMAGES_UPLOADE_STORAGE . DS . $category->image);
+                }
+
+                // create a new image
+                $uploader = new FileUpload($_FILES["image"]);
+                // for return a message that file destination is not writable
+                try {
+                    $uploader->upload();
+                    $category->image = $uploader->getFileName();
+                } catch (\Exception $e) {
+                    $this->messenger->add($e->getMessage(), Messenger::APP_MESSAGE_ERROR);
+                    $uploderError = true;
+                }
+            }
+
+            if ($uploderError === false && $category->save()) {
                 $this->messenger->add($this->language->get("message_create_success"));
+                $this->redirect("/productcategories");
             } else {
-                $this->messenger->add($this->language->get("message_create_failed"));
+                $this->messenger->add($this->language->get("message_create_falied"), Messenger::APP_MESSAGE_ERROR);
             }
             $this->redirect("/productcategories");
         }
@@ -101,10 +135,16 @@ class ProductCategoriesController extends AbstractController
         $this->language->load("productcategories.messages");
 
         if ($category->delete()) {
+
+            if (!empty($category->image) && file_exists(IMAGES_UPLOADE_STORAGE . DS . $category->image)) {
+                unlink(IMAGES_UPLOADE_STORAGE . DS . $category->image);
+            }
+
             $this->messenger->add($this->language->get("message_delete_success"));
         } else {
             $this->messenger->add($this->language->get("message_delete_failed", Messenger::APP_MESSAGE_ERROR));
         }
+        // remove the old image
         $this->redirect("/productcategories");
     }
 }
