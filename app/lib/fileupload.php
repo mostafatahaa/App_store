@@ -35,6 +35,7 @@ class FileUpload
         $fileName = substr(strtolower(base64_encode($this->name . APP_SALT)), 0, 30);
         $fileName = preg_replace("/(\w{6})/i", "$1_", $fileName);
         $fileName = rtrim($fileName, "_");
+        $this->name = $fileName;
         return $fileName;
     }
 
