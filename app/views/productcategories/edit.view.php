@@ -12,9 +12,11 @@
         <label for="exampleInputEmail1"><?= $text_lable_category_img ?></label>
         <input type="file" name="image" accept="image/*">
     </div>
-    <div class="form-group">
-        <img src="/uploads/images/<?= $category->image ?>" width="30%">
-    </div>
+    <?php if (!empty($category->image)) : ?>
+        <div class="form-group">
+            <img src="/uploads/images/<?= $category->image ?>" width="30%">
+        </div>
+    <?php endif ?>
 
 
     <button type="submit" name="submit" class="btn btn-primary"><?= $text_lable_category_save ?></button>
