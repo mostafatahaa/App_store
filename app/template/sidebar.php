@@ -34,7 +34,7 @@
                 <span class="title"><?= $text_store ?></span>
             </a></li>
 
-        <li><a href="store">
+        <li><a href="/productlist">
                 <span class="icon"><i class="fa-solid fa-circle" style="color: #e4cf67;"></i></span>
                 <span class="title"><?= $text_store_products ?></span>
             </a></li>
