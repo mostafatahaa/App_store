@@ -1,3 +1,3 @@
 </head>
 
-<body>
+<body id="page-top">

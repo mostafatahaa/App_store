@@ -92,13 +92,26 @@ class Template
                     $output .= '<link rel="stylesheet"' . $path . '/>';
                 }
             }
-            // Generate "JS" links 
-            //     $js = $resources["js"];
-            //     if (!empty($js)) {
-            //         foreach ($js as $js_key => $path) {
-            //             $output .= '<script src="' . $path . '"></script>';
-            //         }
-            //     }
+        }
+
+        echo $output;
+    }
+
+    private function render_footer_resources()
+    {
+        $output = '';
+        if (!array_key_exists("footer_resources",  $this->_template_parts)) {
+            trigger_error("You have to define footer resources", E_USER_WARNING);
+        } else {
+            $resources = $this->_template_parts["footer_resources"];
+
+            // Generate BOOTSTRAP "CSS" links 
+            $js = $resources["script"];
+            if (!empty($js)) {
+                foreach ($js as $js_key => $path) {
+                    $output .= '<script src="' . $path . '"></script>';
+                }
+            }
         }
 
         echo $output;
@@ -112,6 +125,7 @@ class Template
         $this->render_header_resources();
         $this->render_template_header_end();
         $this->render_template_blocks();
+        $this->render_footer_resources();
         $this->render_template_footer();
     }
 }
