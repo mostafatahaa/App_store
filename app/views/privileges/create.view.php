@@ -14,4 +14,3 @@
         </div>
         <button type="submit" name="submit" class="btn btn-primary"><?= $text_lable_privilege_save ?></button>
     </form>
-    </div>

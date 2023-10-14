@@ -99,10 +99,10 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
         <div class="sidebar-brand-text mx-3"><?= $this->session->u->profile->firstName ?> <?= $this->session->u->profile->lastName ?></div>
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-user"></i>
+        </div>
 
     </a>
 
@@ -113,7 +113,8 @@
     <li class="nav-item">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span><?= $this->session->u->groupName ?></span>
+        </a>
     </li>
 
     <!-- Divider -->
@@ -125,9 +126,10 @@
     <!-- Nav Item - Pages Collapse Menu -->
 
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span><?= $text_expenses ?></span></a>
+            <span><?= $text_expenses ?></span>
+        </a>
     </li>
 
     <li class="nav-item">
@@ -137,20 +139,20 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html"><?= $text_store_products ?></a>
-                <a class="collapse-item" href="cards.html"><?= $text_store_products_type ?></a>
+                <a class="collapse-item" href="/productlist"><?= $text_store_products ?></a>
+                <a class="collapse-item" href="/productcategories"><?= $text_store_products_type ?></a>
             </div>
         </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/clients">
             <i class="fas fa-fw fa-chart-area"></i>
             <span><?= $text_clients ?></span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/suppliers">
             <i class="fas fa-fw fa-chart-area"></i>
             <span><?= $text_suppliers ?></span></a>
     </li>
@@ -163,11 +165,16 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html"><?= $text_users_list ?></a>
-                <a class="collapse-item" href="utilities-border.html"><?= $text_users_group ?></a>
-                <a class="collapse-item" href="utilities-animation.html"><?= $text_users_privileges ?></a>
+                <a class="collapse-item" href="/users"><?= $text_users_list ?></a>
+                <a class="collapse-item" href="/usersgroups"><?= $text_users_group ?></a>
             </div>
         </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/privileges">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span><?= $text_users_privileges ?></span></a>
     </li>
 
     <li class="nav-item">
@@ -183,7 +190,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/auth/logout">
             <i class="fas fa-fw fa-chart-area"></i>
             <span><?= $text_logout ?></span></a>
     </li>
