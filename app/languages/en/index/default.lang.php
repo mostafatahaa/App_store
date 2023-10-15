@@ -1,2 +1,2 @@
 <?php
-$_["title"] = "Users and Privileges";
+$_["title"] = "Home Page";

@@ -110,10 +110,9 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item user-store">
         <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span><?= $this->session->u->groupName ?></span>
+            <h5><?= $this->session->u->groupName ?></h5>
         </a>
     </li>
 
@@ -127,14 +126,14 @@
 
     <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas a-solid fa-money-bill-transfer"></i>
             <span><?= $text_expenses ?></span>
         </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-solid fa-shop"></i>
             <span><?= $text_store ?></span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -147,19 +146,19 @@
 
     <li class="nav-item">
         <a class="nav-link" href="/clients">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-solid fa-users-rectangle"></i>
             <span><?= $text_clients ?></span></a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="/suppliers">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-solid fa-user-group"></i>
             <span><?= $text_suppliers ?></span></a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fas fa-solid fa-users"></i>
             <span><?= $text_users ?></span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -173,26 +172,32 @@
 
     <li class="nav-item">
         <a class="nav-link" href="/privileges">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-solid fa-circle-check"></i>
             <span><?= $text_users_privileges ?></span></a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-solid fa-chart-column"></i>
             <span><?= $text_reports ?></span></a>
     </li>
 
-    <li class="nav-item">
+    <li class=" nav-item">
         <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-solid fa-bell"></i>
             <span><?= $text_notifications ?></span></a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="/auth/logout">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-solid fa-right-from-bracket"></i>
             <span><?= $text_logout ?></span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/auth/logout">
+            <i class="fas fa-solid fa-language"></i>
+            <span>تغيير اللغه</span></a>
     </li>
 
 

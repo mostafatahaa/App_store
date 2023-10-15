@@ -1,6 +1,5 @@
 <title><?= $title ?></title>
 <legend><?= $text_legend ?></legend>
-<h1 class="header-text"><?= $title ?></h1>
 
 <form method="post" style="width: 50%; margin:auto; padding-top:100px;">
 

@@ -1,5 +1,4 @@
 <title><?= $title ?></title>
-<h1 class="header-text"><?= $title ?></h1>
 <a style="float: right;padding: 10px;" href="/privileges/create"><button type="button" class="btn btn-primary"><?= $text_add_privileges ?></button></a>
 
 <table class="table table-striped table-white">
