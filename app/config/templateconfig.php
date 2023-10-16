@@ -11,6 +11,7 @@ return [
 
     "header_resources" => [
         "css" => [
+            "bootstrap"                  =>      'href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"',
             "google_fonts"               =>      'href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"',
             "google-fonts2"              =>      'href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"',
             "fawesome"                   =>      'href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"',

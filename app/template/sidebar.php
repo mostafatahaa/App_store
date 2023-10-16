@@ -195,9 +195,9 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="/auth/logout">
+        <a class="nav-link" href="/language">
             <i class="fas fa-solid fa-language"></i>
-            <span>تغيير اللغه</span></a>
+            <span><?= $text_lang ?></span></a>
     </li>
 
 

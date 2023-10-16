@@ -20,3 +20,4 @@ $_["text_users_list"] = "قائمة المستخدمي";
 $_["text_users_group"] = "مجموعات المستخدمين";
 $_["text_users_privileges"] = "الصلاحيات";
 $_["text_access_denied"] = "عفوا أنت ليس لديك الصلاحية لدخول هذه الصفحه";
+$_["text_lang"] = "تغيير اللغه";
